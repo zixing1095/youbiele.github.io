@@ -1,0 +1,40 @@
+---
+layout: home
+hero:
+  name: 阿野的野径
+  text: 记录普通人的逆袭之路
+  tagline: 野径不通，那就踩出一条路
+  image:
+    src: /hero.png
+    alt: 阿野的野径
+  actions:
+    - theme: brand
+      text: 关于我
+      link: /about
+    - theme: alt
+      text: 野径日记
+      link: /blog/
+    - theme: alt
+      text: GitHub
+      link: https://github.com/zixing1095
+
+features:
+  - icon: 📚
+    title: Python 学习
+    details: 从 0 到 1，3 个月入门实战
+  - icon: 🗣️
+    title: 英语自救
+    details: 英语渣的 6 个月交流计划
+  - icon: 🎓
+    title: 在职读研
+    details: 双非本逆袭 985/211
+  - icon: 🤖
+    title: OpenClaw
+    details: 打工人效率提升神器
+  - icon: ✈️
+    title: 旅行生活
+    details: 工作再忙也要看世界
+  - icon: 💡
+    title: 个人成长
+    details: 普通人的自救之路
+---
