@@ -1,0 +1,16 @@
+{
+  "name": "yes-path-blog",
+  "version": "1.0.0",
+  "description": "阿野的野径 - 记录普通人的逆袭之路",
+  "scripts": {
+    "docs:dev": "vitepress dev docs",
+    "docs:build": "vitepress build docs",
+    "docs:preview": "vitepress preview docs"
+  },
+  "keywords": ["阿野", "个人成长", "Python", "英语学习", "在职读研"],
+  "author": "阿野",
+  "license": "MIT",
+  "devDependencies": {
+    "vitepress": "^1.0.0"
+  }
+}
