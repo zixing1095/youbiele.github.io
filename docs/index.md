@@ -63,14 +63,41 @@ onMounted(() => {
   audio.volume = 0.3
   
   let isPlaying = false
-  musicBtn.addEventListener('click', () => {
+  
+  // 尝试自动播放（浏览器可能阻止）
+  const tryAutoPlay = async () => {
+    try {
+      await audio.play()
+      isPlaying = true
+      musicBtn.classList.add('playing')
+      musicBtn.innerHTML = '⏸️'
+    } catch (e) {
+      console.log('自动播放被阻止，需要用户交互')
+      // 第一次点击任意位置时尝试播放
+      document.addEventListener('click', () => {
+        if (!isPlaying) {
+          audio.play().catch(() => {})
+          isPlaying = true
+          musicBtn.classList.add('playing')
+          musicBtn.innerHTML = '⏸️'
+        }
+      }, { once: true })
+    }
+  }
+  
+  // 页面加载后尝试自动播放
+  setTimeout(tryAutoPlay, 1000)
+  
+  // 手动控制
+  musicBtn.addEventListener('click', (e) => {
+    e.stopPropagation()
     if (isPlaying) {
       audio.pause()
       musicBtn.classList.remove('playing')
       musicBtn.innerHTML = '🎵'
     } else {
       audio.play().catch(() => {
-        alert('请确保 docs/public/ 目录下有 bgm.mp3 文件')
+        alert('请确保 docs/public/ 目录下有 bgm.mp3 文件（平凡之路钢琴曲）')
       })
       musicBtn.classList.add('playing')
       musicBtn.innerHTML = '⏸️'

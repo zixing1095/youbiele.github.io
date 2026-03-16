@@ -7,8 +7,10 @@ export default defineConfig({
   base: '/',
   
   head: [
-    // SEO 基础
-    ['link', { rel: 'icon', href: '/favicon.png' }],
+    // SEO 基础 - 网站图标
+    ['link', { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' }],
+    ['link', { rel: 'icon', type: 'image/png', href: '/favicon-32x32.png' }],
+    ['link', { rel: 'apple-touch-icon', href: '/apple-touch-icon.png' }],
     ['meta', { name: 'keywords', content: '阿野，双非本，Python 学习，在职读研，个人成长，逆袭，英语学习，自律，博客' }],
     ['meta', { name: 'author', content: '阿野' }],
     ['meta', { name: 'robots', content: 'index, follow' }],

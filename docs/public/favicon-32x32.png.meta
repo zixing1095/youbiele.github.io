@@ -1,0 +1,5 @@
+# 32x32 PNG 图标
+# 可以使用在线工具从 favicon.svg 转换：
+# https://convertio.co/zh/svg-png/
+# 或使用 ImageMagick:
+# convert favicon.svg -resize 32x32 favicon-32x32.png
