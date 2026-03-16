@@ -50,237 +50,115 @@ features:
 import { onMounted } from 'vue'
 
 onMounted(() => {
-  // 检查是否已存在播放器（防止多页面重复创建）
-  if (window.__musicPlayerInitialized) {
-    return
-  }
+  // 全局单例
+  if (window.__musicPlayerInitialized) return
   window.__musicPlayerInitialized = true
   
-  // 全局音频对象（单例）
   if (!window.__globalAudio) {
     window.__globalAudio = {
       audio: new Audio('/bgm.mp3'),
       isPlaying: false,
-      volume: 0.3,
-      audioContext: null,
-      analyser: null,
-      dataArray: null,
-      animationId: null
+      volume: 0.3
     }
     window.__globalAudio.audio.loop = true
     window.__globalAudio.audio.volume = 0.3
   }
   
-  const { audio, isPlaying: globalIsPlaying } = window.__globalAudio
+  const { audio } = window.__globalAudio
   
-  // 音乐播放器
+  // 简洁播放器
   const player = document.createElement('div')
   player.className = 'music-player'
   player.innerHTML = `
-    <div class="music-info">
-      <div class="music-disc-wrapper">
-        <div class="music-disc">
-          <div class="disc-inner">
-            <span class="disc-text">野径</span>
-          </div>
-        </div>
-        <div class="ripple-container"></div>
-      </div>
-      <div class="music-text">
-        <div class="music-title">Peaceful Piano</div>
-        <div class="music-desc">平静的钢琴曲</div>
-      </div>
+    <button class="play-btn" title="播放/暂停">
+      <svg viewBox="0 0 24 24" fill="currentColor">
+        <path d="M8 5v14l11-7z"/>
+      </svg>
+    </button>
+    <div class="track-info">
+      <span class="track-name">Peaceful Piano</span>
+      <span class="track-artist">平静的钢琴曲</span>
     </div>
-    <div class="music-controls">
-      <div class="play-wrapper">
-        <button class="music-btn" title="播放/暂停">
-          <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M8 5v14l11-7z"/>
-          </svg>
-          <svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" style="display:none;">
-            <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/>
-          </svg>
-        </button>
-        <div class="volume-menu">
-          <div class="volume-label">音量</div>
-          <input type="range" class="volume-slider" min="0" max="100" value="30">
-          <div class="volume-value">30%</div>
-        </div>
+    <div class="volume-control">
+      <button class="vol-btn" title="音量">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/>
+        </svg>
+      </button>
+      <div class="vol-slider-wrap">
+        <input type="range" class="vol-slider" min="0" max="100" value="30">
       </div>
     </div>
   `
   document.body.appendChild(player)
   
-  // DOM 元素
-  const musicBtn = player.querySelector('.music-btn')
-  const iconPlay = musicBtn.querySelector('.icon-play')
-  const iconPause = musicBtn.querySelector('.icon-pause')
-  const volumeSlider = player.querySelector('.volume-slider')
-  const volumeValue = player.querySelector('.volume-value')
-  const musicDisc = player.querySelector('.music-disc')
-  const rippleContainer = player.querySelector('.ripple-container')
-  const discInner = player.querySelector('.disc-inner')
-  const musicInfo = player.querySelector('.music-info')
-  const playWrapper = player.querySelector('.play-wrapper')
-  const volumeMenu = player.querySelector('.volume-menu')
+  const playBtn = player.querySelector('.play-btn')
+  const volBtn = player.querySelector('.vol-btn')
+  const volSlider = player.querySelector('.vol-slider')
+  const volWrap = player.querySelector('.vol-slider-wrap')
+  const trackInfo = player.querySelector('.track-info')
   
-  // 同步全局状态
-  const syncState = () => {
-    volumeSlider.value = window.__globalAudio.volume * 100
-    volumeValue.textContent = Math.round(window.__globalAudio.volume * 100) + '%'
+  // 更新图标
+  const updateIcon = () => {
+    playBtn.innerHTML = window.__globalAudio.isPlaying 
+      ? '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/></svg>'
+      : '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>'
     
     if (window.__globalAudio.isPlaying) {
-      iconPlay.style.display = 'none'
-      iconPause.style.display = 'block'
-      musicDisc.classList.add('rotating')
+      player.classList.add('playing')
     } else {
-      iconPlay.style.display = 'block'
-      iconPause.style.display = 'none'
-      musicDisc.classList.remove('rotating')
+      player.classList.remove('playing')
     }
-  }
-  
-  // 初始化音频分析器
-  const initAudioAnalyzer = () => {
-    if (!window.__globalAudio.audioContext) {
-      window.__globalAudio.audioContext = new (window.AudioContext || window.webkitAudioContext)()
-      window.__globalAudio.analyser = window.__globalAudio.audioContext.createAnalyser()
-      const source = window.__globalAudio.audioContext.createMediaElementSource(audio)
-      source.connect(window.__globalAudio.analyser)
-      window.__globalAudio.analyser.connect(window.__globalAudio.audioContext.destination)
-      window.__globalAudio.analyser.fftSize = 64
-      window.__globalAudio.dataArray = new Uint8Array(window.__globalAudio.analyser.frequencyBinCount)
-    }
-  }
-  
-  // 创建水波纹
-  const createRipple = (intensity) => {
-    const ripple = document.createElement('div')
-    ripple.className = 'ripple'
-    
-    const scale = 1 + (intensity / 255) * 2
-    const hue = 220 + (intensity / 255) * 60
-    const opacity = 0.3 + (intensity / 255) * 0.5
-    
-    ripple.style.setProperty('--ripple-scale', scale)
-    ripple.style.setProperty('--ripple-hue', hue)
-    ripple.style.setProperty('--ripple-opacity', opacity)
-    
-    rippleContainer.appendChild(ripple)
-    
-    setTimeout(() => {
-      ripple.remove()
-    }, 1500)
-  }
-  
-  // 音频可视化动画
-  const animate = () => {
-    if (!window.__globalAudio.isPlaying || !window.__globalAudio.analyser) return
-    
-    window.__globalAudio.analyser.getByteFrequencyData(window.__globalAudio.dataArray)
-    const average = window.__globalAudio.dataArray.reduce((a, b) => a + b, 0) / window.__globalAudio.dataArray.length
-    const intensity = average
-    
-    const hue = 220 + (intensity / 255) * 60
-    const lightness = 50 + (intensity / 255) * 20
-    discInner.style.setProperty('--disc-hue', hue)
-    discInner.style.setProperty('--disc-lightness', lightness)
-    
-    if (intensity > 100) {
-      createRipple(intensity)
-    }
-    
-    window.__globalAudio.animationId = requestAnimationFrame(animate)
   }
   
   // 播放/暂停
-  const togglePlay = async () => {
+  const toggle = async () => {
     if (window.__globalAudio.isPlaying) {
       audio.pause()
       window.__globalAudio.isPlaying = false
-      if (window.__globalAudio.animationId) {
-        cancelAnimationFrame(window.__globalAudio.animationId)
-      }
     } else {
-      try {
-        await audio.play()
-        window.__globalAudio.isPlaying = true
-        initAudioAnalyzer()
-        if (window.__globalAudio.audioContext && window.__globalAudio.audioContext.state === 'suspended') {
-          await window.__globalAudio.audioContext.resume()
-        }
-        animate()
-      } catch (e) {
-        console.log('播放失败', e)
-      }
+      await audio.play()
+      window.__globalAudio.isPlaying = true
     }
-    syncState()
+    updateIcon()
   }
   
-  musicBtn.addEventListener('click', (e) => {
+  playBtn.addEventListener('click', (e) => {
     e.stopPropagation()
-    e.preventDefault()
-    togglePlay()
+    toggle()
   })
   
-  // 音量调节
-  volumeSlider.addEventListener('input', (e) => {
-    e.stopPropagation()
-    e.preventDefault()
-    const value = parseInt(e.target.value)
-    window.__globalAudio.volume = value / 100
-    audio.volume = value / 100
-    volumeValue.textContent = value + '%'
-    console.log('音量:', value + '%')
+  // 音量
+  volSlider.addEventListener('input', (e) => {
+    const v = parseInt(e.target.value)
+    window.__globalAudio.volume = v / 100
+    audio.volume = v / 100
   })
   
-  volumeSlider.addEventListener('change', (e) => {
+  // 显示/隐藏音量滑块
+  volBtn.addEventListener('click', (e) => {
     e.stopPropagation()
-    e.preventDefault()
-    const value = parseInt(e.target.value)
-    window.__globalAudio.volume = value / 100
-    audio.volume = value / 100
+    volWrap.classList.toggle('show')
   })
   
-  // 鼠标悬停显示歌曲信息
+  player.addEventListener('click', () => {
+    volWrap.classList.remove('show')
+  })
+  
+  // 悬停显示信息
   player.addEventListener('mouseenter', () => {
-    musicInfo.classList.add('hover')
+    trackInfo.classList.add('show')
   })
   
   player.addEventListener('mouseleave', () => {
-    setTimeout(() => {
-      musicInfo.classList.remove('hover')
-    }, 300)
+    trackInfo.classList.remove('show')
+    setTimeout(() => volWrap.classList.remove('show'), 300)
   })
   
-  // 鼠标悬停播放按钮显示音量菜单
-  playWrapper.addEventListener('mouseenter', () => {
-    volumeMenu.classList.add('show')
-  })
+  // 初始化
+  updateIcon()
   
-  playWrapper.addEventListener('mouseleave', () => {
-    setTimeout(() => {
-      volumeMenu.classList.remove('show')
-    }, 500)
-  })
-  
-  // 阻止音量菜单点击事件关闭
-  volumeMenu.addEventListener('click', (e) => {
-    e.stopPropagation()
-    e.preventDefault()
-  })
-  
-  // 初始化状态
-  syncState()
-  
-  // 页面卸载时清理（可选）
-  window.addEventListener('beforeunload', () => {
-    // 保持播放器状态，不清理
-  })
-  
-  // 尝试自动播放
-  setTimeout(() => {
-    togglePlay()
-  }, 1000)
+  // 自动播放
+  setTimeout(toggle, 1000)
 })
 </script>
