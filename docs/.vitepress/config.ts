@@ -76,6 +76,7 @@ export default defineConfig({
       { text: '野径日记', link: '/blog/' },
       { text: '学习笔记', link: '/learn/' },
       { text: '工具教程', link: '/tools/' },
+      { text: '法律声明', link: '/legal' },
     ],
     
     // 侧边栏
@@ -121,8 +122,8 @@ export default defineConfig({
     
     // 页脚
     footer: {
-      message: '野径不通，那就踩出一条路',
-      copyright: '© 2026 阿野的野径',
+      message: '野径不通，那就踩出一条路<br/><span style="font-size:12px;opacity:0.8;">© 2026 阿野的野径 | <a href="/legal" style="color:inherit;">法律声明</a></span>',
+      copyright: '',
     },
     
     // 搜索
