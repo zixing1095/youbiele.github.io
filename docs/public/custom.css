@@ -104,7 +104,10 @@
 .btn svg {
   width: 14px;
   height: 14px;
-  fill: currentColor;
+}
+
+.btn svg path {
+  fill: white;
 }
 
 /* 音量控制 */
