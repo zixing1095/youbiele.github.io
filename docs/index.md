@@ -1,7 +1,9 @@
 ---
 layout: home
-title: 阿野的野径
-titleTemplate: 记录普通人的逆袭之路
+title: 阿野的野径 - 记录普通人的逆袭之路
+titleTemplate: 双非本科 | 在职读研 | Python 学习 | 英语提升
+description: 阿野的个人博客，记录双非本科逆袭、在职读研、Python 学习、英语提升、个人成长的真实经历。野径不通，那就踩出一条路。
+---
 
 hero:
   name: 阿野的野径

@@ -1,3 +1,9 @@
+---
+title: Day1 - Python 环境搭建教程
+description: Python 3 环境搭建完整教程，包含 Windows、Mac、Linux 安装步骤，第一个 Python 程序，基础语法速览。适合零基础入门。
+keywords: Python 教程，Python 环境搭建，Python 安装，Python 入门，Python 基础语法
+---
+
 # Day1 - 环境搭建
 
 > 工欲善其事，必先利其器

@@ -2,6 +2,13 @@
 
 > 野径不通，那就踩出一条路
 
+<!-- SEO: 关于阿野 - 双非本科逆袭、在职读研、Python 学习、英语提升 -->
+
+<script setup>
+import { useData } from 'vitepress'
+const { site } = useData()
+</script>
+
 ## 👋 你好，我是阿野
 
 一个普通的追梦人，正在用自己的方式书写不平凡的人生。
