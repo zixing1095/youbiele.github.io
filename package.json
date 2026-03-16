@@ -5,8 +5,9 @@
   "type": "module",
   "scripts": {
     "docs:dev": "vitepress dev docs",
-    "docs:build": "node build.mjs",
-    "docs:preview": "vitepress preview docs"
+    "docs:build": "node scripts/update-readme.js && node build.mjs",
+    "docs:preview": "vitepress preview docs",
+    "update:readme": "node scripts/update-readme.js"
   },
   "keywords": ["阿野", "个人成长", "Python", "英语学习", "在职读研"],
   "author": "阿野",
