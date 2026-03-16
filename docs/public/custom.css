@@ -149,7 +149,7 @@
   animation: fadeIn 0.6s ease-out;
 }
 
-/* 🎵 音乐播放器 - 现代化设计 */
+/* 🎵 音乐播放器 - 水波纹律动版 */
 
 .music-player {
   position: fixed;
@@ -161,6 +161,7 @@
   align-items: flex-end;
   gap: 12px;
   font-family: var(--vp-font-family-base);
+  --audio-intensity: 0;
 }
 
 /* 歌曲信息 */
@@ -177,6 +178,8 @@
   transform: translateX(20px);
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   pointer-events: none;
+  position: relative;
+  overflow: visible;
 }
 
 .music-player.active .music-info {
@@ -185,51 +188,86 @@
   pointer-events: auto;
 }
 
-/* 黑胶唱片动画 */
+/* 唱片包装器 */
+.music-disc-wrapper {
+  position: relative;
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* 黑胶唱片 */
 .music-disc {
-  width: 40px;
-  height: 40px;
+  width: 52px;
+  height: 52px;
   border-radius: 50%;
   background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-shrink: 0;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
   position: relative;
-  overflow: hidden;
-}
-
-.music-disc::before {
-  content: '';
-  position: absolute;
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, var(--vp-c-brand), var(--vp-c-brand-dark));
   z-index: 2;
+  transition: all 0.3s ease;
 }
 
 .disc-inner {
   width: 100%;
   height: 100%;
   border-radius: 50%;
-  border: 2px solid rgba(255, 255, 255, 0.1);
   position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: conic-gradient(
+    from 0deg,
+    hsl(var(--disc-hue, 220) var(--disc-lightness, 50%) 0%),
+    hsl(calc(var(--disc-hue, 220) + 60) calc(var(--disc-lightness, 50%) + 10%) 50%),
+    hsl(var(--disc-hue, 220) var(--disc-lightness, 50%) 100%)
+  );
+  transition: all 0.1s ease;
 }
 
+/* 同心圆纹理 */
 .disc-inner::before {
   content: '';
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 60%;
-  height: 60%;
+  width: 70%;
+  height: 70%;
   border-radius: 50%;
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  background: conic-gradient(
+    from 0deg,
+    hsl(calc(var(--disc-hue, 220) + 30) calc(var(--disc-lightness, 50%) - 10%) 0%),
+    hsl(var(--disc-hue, 220) calc(var(--disc-lightness, 50%) + 5%) 100%)
+  );
+  border: 2px solid rgba(255, 255, 255, 0.1);
 }
 
+.disc-inner::after {
+  content: '';
+  position: absolute;
+  width: 40%;
+  height: 40%;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--vp-c-brand), var(--vp-c-brand-dark));
+  box-shadow: 0 2px 8px rgba(74, 158, 255, 0.5);
+}
+
+/* 唱片文字 */
+.disc-text {
+  position: absolute;
+  font-size: 16px;
+  font-weight: 700;
+  color: white;
+  z-index: 10;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+  letter-spacing: 2px;
+}
+
+/* 旋转动画 */
 .music-disc.rotating {
   animation: rotateDisc 3s linear infinite;
 }
@@ -237,6 +275,77 @@
 @keyframes rotateDisc {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
+}
+
+/* 水波纹容器 */
+.ripple-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* 单个水波纹 */
+.ripple {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    hsla(var(--ripple-hue, 220), 80%, 60%, var(--ripple-opacity, 0.5)) 0%,
+    hsla(var(--ripple-hue, 220), 80%, 60%, 0.3) 40%,
+    hsla(var(--ripple-hue, 220), 80%, 60%, 0.1) 70%,
+    transparent 100%
+  );
+  animation: rippleExpand 1.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  pointer-events: none;
+}
+
+@keyframes rippleExpand {
+  0% {
+    width: 52px;
+    height: 52px;
+    opacity: var(--ripple-opacity, 0.5);
+    transform: translate(-50%, -50%) scale(1);
+  }
+  100% {
+    width: calc(52px * var(--ripple-scale, 3));
+    height: calc(52px * var(--ripple-scale, 3));
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(var(--ripple-scale, 3));
+  }
+}
+
+/* 多层波纹效果 */
+.ripple::before {
+  content: '';
+  position: absolute;
+  top: 10%;
+  left: 10%;
+  width: 80%;
+  height: 80%;
+  border-radius: 50%;
+  border: 2px solid hsla(var(--ripple-hue, 220), 80%, 60%, 0.4);
+  animation: rippleBorder 1.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes rippleBorder {
+  0% {
+    transform: scale(1);
+    opacity: 0.4;
+  }
+  100% {
+    transform: scale(2.5);
+    opacity: 0;
+  }
 }
 
 /* 歌曲文字 */
@@ -420,14 +529,23 @@
     border-radius: 12px;
   }
   
-  .music-disc {
-    width: 36px;
-    height: 36px;
+  .music-disc-wrapper {
+    width: 48px;
+    height: 48px;
   }
   
-  .music-disc::before {
-    width: 12px;
-    height: 12px;
+  .music-disc {
+    width: 44px;
+    height: 44px;
+  }
+  
+  .ripple {
+    width: 44px;
+    height: 44px;
+  }
+  
+  .disc-text {
+    font-size: 14px;
   }
   
   .music-title {

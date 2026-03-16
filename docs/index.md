@@ -55,8 +55,13 @@ onMounted(() => {
   player.className = 'music-player'
   player.innerHTML = `
     <div class="music-info">
-      <div class="music-disc">
-        <div class="disc-inner"></div>
+      <div class="music-disc-wrapper">
+        <div class="music-disc">
+          <div class="disc-inner">
+            <span class="disc-text">野径</span>
+          </div>
+        </div>
+        <div class="ripple-container"></div>
       </div>
       <div class="music-text">
         <div class="music-title">Peaceful Piano</div>
@@ -79,7 +84,7 @@ onMounted(() => {
           </svg>
         </button>
         <div class="volume-slider-wrapper">
-          <input type="range" class="volume-slider" min="0" max="100" value="30" orient="vertical">
+          <input type="range" class="volume-slider" min="0" max="100" value="30">
         </div>
       </div>
     </div>
@@ -92,6 +97,10 @@ onMounted(() => {
   audio.volume = 0.3
   
   let isPlaying = false
+  let audioContext = null
+  let analyser = null
+  let dataArray = null
+  let animationId = null
   
   // DOM 元素
   const musicBtn = player.querySelector('.music-btn')
@@ -101,6 +110,70 @@ onMounted(() => {
   const volumeSlider = player.querySelector('.volume-slider')
   const volumeWrapper = player.querySelector('.volume-slider-wrapper')
   const musicDisc = player.querySelector('.music-disc')
+  const rippleContainer = player.querySelector('.ripple-container')
+  const discInner = player.querySelector('.disc-inner')
+  
+  // 初始化音频分析器
+  const initAudioAnalyzer = () => {
+    if (!audioContext) {
+      audioContext = new (window.AudioContext || window.webkitAudioContext)()
+      analyser = audioContext.createAnalyser()
+      const source = audioContext.createMediaElementSource(audio)
+      source.connect(analyser)
+      analyser.connect(audioContext.destination)
+      analyser.fftSize = 64
+      dataArray = new Uint8Array(analyser.frequencyBinCount)
+    }
+  }
+  
+  // 创建水波纹
+  const createRipple = (intensity) => {
+    const ripple = document.createElement('div')
+    ripple.className = 'ripple'
+    
+    // 根据音频强度设置波纹大小和颜色
+    const scale = 1 + (intensity / 255) * 2
+    const hue = 220 + (intensity / 255) * 60 // 蓝色到紫色渐变
+    const opacity = 0.3 + (intensity / 255) * 0.5
+    
+    ripple.style.setProperty('--ripple-scale', scale)
+    ripple.style.setProperty('--ripple-hue', hue)
+    ripple.style.setProperty('--ripple-opacity', opacity)
+    
+    rippleContainer.appendChild(ripple)
+    
+    // 动画结束后移除
+    setTimeout(() => {
+      ripple.remove()
+    }, 1500)
+  }
+  
+  // 音频可视化动画
+  const animate = () => {
+    if (!isPlaying || !analyser) return
+    
+    analyser.getByteFrequencyData(dataArray)
+    
+    // 计算平均频率强度
+    const average = dataArray.reduce((a, b) => a + b, 0) / dataArray.length
+    const intensity = average
+    
+    // 根据强度更新唱片颜色
+    const hue = 220 + (intensity / 255) * 60
+    const lightness = 50 + (intensity / 255) * 20
+    discInner.style.setProperty('--disc-hue', hue)
+    discInner.style.setProperty('--disc-lightness', lightness)
+    
+    // 创建波纹（根据节奏）
+    if (intensity > 100) {
+      createRipple(intensity)
+    }
+    
+    // 更新播放器状态
+    player.style.setProperty('--audio-intensity', intensity)
+    
+    animationId = requestAnimationFrame(animate)
+  }
   
   // 更新播放按钮图标
   const updatePlayIcon = () => {
@@ -108,25 +181,38 @@ onMounted(() => {
       iconPlay.style.display = 'none'
       iconPause.style.display = 'block'
       musicDisc.classList.add('rotating')
+      player.classList.add('active')
     } else {
       iconPlay.style.display = 'block'
       iconPause.style.display = 'none'
       musicDisc.classList.remove('rotating')
+      player.classList.remove('active')
     }
   }
   
   // 播放/暂停
-  const togglePlay = () => {
+  const togglePlay = async () => {
     if (isPlaying) {
       audio.pause()
       isPlaying = false
-      player.classList.remove('active')
+      if (animationId) {
+        cancelAnimationFrame(animationId)
+      }
+      updatePlayIcon()
     } else {
-      audio.play().catch(() => {})
-      isPlaying = true
-      player.classList.add('active')
+      try {
+        await audio.play()
+        isPlaying = true
+        initAudioAnalyzer()
+        if (audioContext && audioContext.state === 'suspended') {
+          await audioContext.resume()
+        }
+        animate()
+        updatePlayIcon()
+      } catch (e) {
+        console.log('播放失败', e)
+      }
     }
-    updatePlayIcon()
   }
   
   musicBtn.addEventListener('click', (e) => {
@@ -135,8 +221,6 @@ onMounted(() => {
   })
   
   // 音量控制
-  let showVolumeTimeout
-  
   volumeBtn.addEventListener('click', (e) => {
     e.stopPropagation()
     volumeWrapper.classList.toggle('show')
