@@ -77,7 +77,6 @@ export default defineConfig({
       { text: '野径日记', link: '/blog/' },
       { text: '学习笔记', link: '/learn/' },
       { text: '工具教程', link: '/tools/' },
-      { text: '法律声明', link: '/legal' },
     ],
     
     // 侧边栏
