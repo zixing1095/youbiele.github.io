@@ -5,6 +5,7 @@
 ## 📔 日记列表
 
 - [Day1 - 我是阿野，这是我的野径](/blog/day1-wild-path)
+- [Day2 - 搭建博客](/blog/day2-diary-blog)
 
 ## 💭 写在前面
 
