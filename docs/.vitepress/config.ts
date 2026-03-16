@@ -14,6 +14,7 @@ export default defineConfig({
     ['meta', { name: 'apple-mobile-web-app-status-bar-style', content: 'default' }],
     ['meta', { name: 'keywords', content: '阿野，双非本，Python 学习，在职读研，个人成长，逆袭，英语学习，自律，博客' }],
     ['meta', { name: 'author', content: '阿野' }],
+    ['meta', { name: 'contact', content: 'youbeile1203@foxmail.com' }],
     ['meta', { name: 'robots', content: 'index, follow' }],
     ['link', { rel: 'canonical', href: 'https://youbeile1203.cn/' }],
     
