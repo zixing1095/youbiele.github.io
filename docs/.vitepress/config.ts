@@ -87,6 +87,7 @@ export default defineConfig({
           text: '野径日记', 
           items: [
             { text: 'Day1 - 我是阿野', link: '/blog/day1-wild-path' },
+            { text: 'Day2 - 博客搭建', link: '/blog/day2-diary-blog' },
           ]
         },
       ],
