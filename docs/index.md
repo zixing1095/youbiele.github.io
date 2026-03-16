@@ -50,18 +50,73 @@ features:
 import { onMounted } from 'vue'
 
 onMounted(() => {
-  // 背景音乐控制
+  // 音乐播放器容器
+  const musicContainer = document.createElement('div')
+  musicContainer.className = 'music-container'
+  document.body.appendChild(musicContainer)
+  
+  // 歌曲信息显示
+  const songInfo = document.createElement('div')
+  songInfo.className = 'song-info'
+  songInfo.innerHTML = `
+    <div class="song-title">🎵 Peaceful Piano</div>
+    <div class="song-artist">平静的钢琴曲</div>
+  `
+  musicContainer.appendChild(songInfo)
+  
+  // 控制按钮
   const musicBtn = document.createElement('div')
-  musicBtn.className = 'music-player'
+  musicBtn.className = 'music-btn'
   musicBtn.innerHTML = '🎵'
   musicBtn.title = '播放/暂停背景音乐'
-  document.body.appendChild(musicBtn)
+  musicContainer.appendChild(musicBtn)
   
+  // 音量控制
+  const volumeControl = document.createElement('div')
+  volumeControl.className = 'volume-control'
+  volumeControl.innerHTML = `
+    <span class="volume-icon">🔊</span>
+    <input type="range" class="volume-slider" min="0" max="100" value="30">
+  `
+  musicContainer.appendChild(volumeControl)
+  
+  // 音频对象
   const audio = new Audio('/bgm.mp3')
   audio.loop = true
   audio.volume = 0.3
   
   let isPlaying = false
+  
+  // 更新音量图标
+  const updateVolumeIcon = (volume) => {
+    const icon = volumeControl.querySelector('.volume-icon')
+    if (volume === 0) {
+      icon.innerHTML = '🔇'
+    } else if (volume < 50) {
+      icon.innerHTML = '🔉'
+    } else {
+      icon.innerHTML = '🔊'
+    }
+  }
+  
+  // 音量滑块事件
+  const volumeSlider = volumeControl.querySelector('.volume-slider')
+  volumeSlider.addEventListener('input', (e) => {
+    const value = e.target.value
+    audio.volume = value / 100
+    updateVolumeIcon(value)
+  })
+  
+  // 鼠标悬停显示控制
+  musicContainer.addEventListener('mouseenter', () => {
+    musicContainer.classList.add('expanded')
+  })
+  
+  musicContainer.addEventListener('mouseleave', () => {
+    setTimeout(() => {
+      musicContainer.classList.remove('expanded')
+    }, 500)
+  })
   
   // 尝试自动播放（浏览器可能阻止）
   const tryAutoPlay = async () => {
@@ -70,6 +125,7 @@ onMounted(() => {
       isPlaying = true
       musicBtn.classList.add('playing')
       musicBtn.innerHTML = '⏸️'
+      musicContainer.classList.add('active')
     } catch (e) {
       console.log('自动播放被阻止，需要用户交互')
       // 第一次点击任意位置时尝试播放
@@ -79,6 +135,7 @@ onMounted(() => {
           isPlaying = true
           musicBtn.classList.add('playing')
           musicBtn.innerHTML = '⏸️'
+          musicContainer.classList.add('active')
         }
       }, { once: true })
     }
@@ -87,21 +144,31 @@ onMounted(() => {
   // 页面加载后尝试自动播放
   setTimeout(tryAutoPlay, 1000)
   
-  // 手动控制
+  // 播放/暂停控制
   musicBtn.addEventListener('click', (e) => {
     e.stopPropagation()
     if (isPlaying) {
       audio.pause()
       musicBtn.classList.remove('playing')
       musicBtn.innerHTML = '🎵'
+      musicContainer.classList.remove('active')
     } else {
       audio.play().catch(() => {
-        alert('请确保 docs/public/ 目录下有 bgm.mp3 文件（平凡之路钢琴曲）')
+        console.log('播放失败，请检查音乐文件')
       })
       musicBtn.classList.add('playing')
       musicBtn.innerHTML = '⏸️'
+      musicContainer.classList.add('active')
     }
     isPlaying = !isPlaying
+  })
+  
+  // 点击容器其他区域也切换播放
+  musicContainer.addEventListener('click', (e) => {
+    if (e.target !== volumeSlider && !e.target.classList.contains('volume-icon')) {
+      // 触发播放/暂停
+      musicBtn.click()
+    }
   })
 })
 </script>
