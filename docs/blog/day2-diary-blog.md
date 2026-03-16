@@ -149,7 +149,7 @@ export default defineConfig({
 npx vitepress dev docs
 ```
 
-打开 http://localhost:5173 查看
+打开本地预览查看
 
 ### 第七步：部署上线
 
