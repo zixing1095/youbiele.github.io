@@ -50,7 +50,6 @@ features:
 import { onMounted } from 'vue'
 
 onMounted(() => {
-  // 全局单例
   if (window.__musicPlayerInitialized) return
   window.__musicPlayerInitialized = true
   
@@ -69,32 +68,24 @@ onMounted(() => {
   
   const { audio } = window.__globalAudio
   
-  // 播放器
   const player = document.createElement('div')
   player.className = 'music-player'
   player.innerHTML = `
-    <div class="disc-wrapper">
-      <div class="disc">
-        <div class="disc-inner"><span>野径</span></div>
-      </div>
+    <div class="disc"><div class="disc-inner"></div></div>
+    <div class="info">
+      <span class="title">Peaceful Piano</span>
+      <span class="artist">钢琴曲</span>
     </div>
-    <div class="track-info">
-      <div class="track-title">Peaceful Piano</div>
-      <div class="track-artist">平静的钢琴曲</div>
-    </div>
-    <div class="controls">
-      <button class="play-btn" title="播放/暂停">
-        <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-        <svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" style="display:none"><path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/></svg>
+    <button class="btn" title="播放/暂停">
+      <svg class="play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+      <svg class="pause" viewBox="0 0 24 24" fill="currentColor" style="display:none"><path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/></svg>
+    </button>
+    <div class="vol-ctrl">
+      <button class="vol-btn" title="音量">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg>
       </button>
-      <div class="vol-wrap">
-        <button class="vol-btn" title="音量">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg>
-        </button>
-        <div class="vol-menu">
-          <input type="range" class="vol-slider" min="0" max="100" value="30">
-          <span class="vol-val">30%</span>
-        </div>
+      <div class="vol-menu">
+        <input type="range" class="vol-slider" min="0" max="100" value="30">
       </div>
     </div>
   `
@@ -102,16 +93,15 @@ onMounted(() => {
   
   const disc = player.querySelector('.disc')
   const discInner = player.querySelector('.disc-inner')
-  const playBtn = player.querySelector('.play-btn')
-  const iconPlay = playBtn.querySelector('.icon-play')
-  const iconPause = playBtn.querySelector('.icon-pause')
+  const btn = player.querySelector('.btn')
+  const playIcon = btn.querySelector('.play')
+  const pauseIcon = btn.querySelector('.pause')
   const volBtn = player.querySelector('.vol-btn')
   const volSlider = player.querySelector('.vol-slider')
-  const volVal = player.querySelector('.vol-val')
   const volMenu = player.querySelector('.vol-menu')
-  const trackInfo = player.querySelector('.track-info')
+  const info = player.querySelector('.info')
   
-  // 音频分析
+  // 音频分析器
   const initAnalyzer = () => {
     if (!window.__globalAudio.audioContext) {
       window.__globalAudio.audioContext = new (window.AudioContext || window.webkitAudioContext)()
@@ -138,15 +128,13 @@ onMounted(() => {
   // 更新UI
   const updateUI = () => {
     if (window.__globalAudio.isPlaying) {
-      iconPlay.style.display = 'none'
-      iconPause.style.display = 'block'
+      playIcon.style.display = 'none'
+      pauseIcon.style.display = 'block'
       disc.classList.add('spin')
-      player.classList.add('active')
     } else {
-      iconPlay.style.display = 'block'
-      iconPause.style.display = 'none'
+      playIcon.style.display = 'block'
+      pauseIcon.style.display = 'none'
       disc.classList.remove('spin')
-      player.classList.remove('active')
     }
   }
   
@@ -168,7 +156,7 @@ onMounted(() => {
     updateUI()
   }
   
-  playBtn.addEventListener('click', e => { e.stopPropagation(); toggle() })
+  btn.addEventListener('click', e => { e.stopPropagation(); toggle() })
   
   // 音量
   volSlider.addEventListener('input', e => {
@@ -176,7 +164,6 @@ onMounted(() => {
     const v = parseInt(e.target.value)
     window.__globalAudio.volume = v / 100
     audio.volume = v / 100
-    volVal.textContent = v + '%'
   })
   
   volBtn.addEventListener('click', e => {
@@ -187,10 +174,9 @@ onMounted(() => {
   document.addEventListener('click', () => volMenu.classList.remove('show'))
   
   // 悬停显示信息
-  player.addEventListener('mouseenter', () => trackInfo.classList.add('show'))
-  player.addEventListener('mouseleave', () => trackInfo.classList.remove('show'))
+  player.addEventListener('mouseenter', () => info.classList.add('show'))
+  player.addEventListener('mouseleave', () => info.classList.remove('show'))
   
-  // 初始化
   updateUI()
   setTimeout(toggle, 1000)
 })
