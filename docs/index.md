@@ -112,6 +112,7 @@ onMounted(() => {
   const musicDisc = player.querySelector('.music-disc')
   const rippleContainer = player.querySelector('.ripple-container')
   const discInner = player.querySelector('.disc-inner')
+  const musicInfo = player.querySelector('.music-info')
   
   // 初始化音频分析器
   const initAudioAnalyzer = () => {
@@ -131,9 +132,8 @@ onMounted(() => {
     const ripple = document.createElement('div')
     ripple.className = 'ripple'
     
-    // 根据音频强度设置波纹大小和颜色
     const scale = 1 + (intensity / 255) * 2
-    const hue = 220 + (intensity / 255) * 60 // 蓝色到紫色渐变
+    const hue = 220 + (intensity / 255) * 60
     const opacity = 0.3 + (intensity / 255) * 0.5
     
     ripple.style.setProperty('--ripple-scale', scale)
@@ -142,7 +142,6 @@ onMounted(() => {
     
     rippleContainer.appendChild(ripple)
     
-    // 动画结束后移除
     setTimeout(() => {
       ripple.remove()
     }, 1500)
@@ -153,25 +152,19 @@ onMounted(() => {
     if (!isPlaying || !analyser) return
     
     analyser.getByteFrequencyData(dataArray)
-    
-    // 计算平均频率强度
     const average = dataArray.reduce((a, b) => a + b, 0) / dataArray.length
     const intensity = average
     
-    // 根据强度更新唱片颜色
     const hue = 220 + (intensity / 255) * 60
     const lightness = 50 + (intensity / 255) * 20
     discInner.style.setProperty('--disc-hue', hue)
     discInner.style.setProperty('--disc-lightness', lightness)
     
-    // 创建波纹（根据节奏）
     if (intensity > 100) {
       createRipple(intensity)
     }
     
-    // 更新播放器状态
     player.style.setProperty('--audio-intensity', intensity)
-    
     animationId = requestAnimationFrame(animate)
   }
   
@@ -181,12 +174,10 @@ onMounted(() => {
       iconPlay.style.display = 'none'
       iconPause.style.display = 'block'
       musicDisc.classList.add('rotating')
-      player.classList.add('active')
     } else {
       iconPlay.style.display = 'block'
       iconPause.style.display = 'none'
       musicDisc.classList.remove('rotating')
-      player.classList.remove('active')
     }
   }
   
@@ -221,19 +212,48 @@ onMounted(() => {
   })
   
   // 音量控制
+  let volumeTimeout
+  
   volumeBtn.addEventListener('click', (e) => {
     e.stopPropagation()
+    e.preventDefault()
     volumeWrapper.classList.toggle('show')
   })
   
+  volumeSlider.addEventListener('click', (e) => {
+    e.stopPropagation()
+    e.preventDefault()
+  })
+  
   volumeSlider.addEventListener('input', (e) => {
-    const value = e.target.value
+    e.stopPropagation()
+    e.preventDefault()
+    const value = parseInt(e.target.value)
+    audio.volume = value / 100
+    console.log('音量调节:', value + '%', '实际音量:', audio.volume)
+  })
+  
+  volumeSlider.addEventListener('change', (e) => {
+    e.stopPropagation()
+    e.preventDefault()
+    const value = parseInt(e.target.value)
     audio.volume = value / 100
   })
   
   // 点击其他地方关闭音量滑块
   document.addEventListener('click', () => {
     volumeWrapper.classList.remove('show')
+  })
+  
+  // 鼠标悬停显示歌曲信息
+  player.addEventListener('mouseenter', () => {
+    musicInfo.classList.add('hover')
+  })
+  
+  player.addEventListener('mouseleave', () => {
+    setTimeout(() => {
+      musicInfo.classList.remove('hover')
+    }, 300)
   })
   
   // 尝试自动播放
