@@ -50,35 +50,41 @@ features:
 import { onMounted } from 'vue'
 
 onMounted(() => {
-  // 音乐播放器容器
-  const musicContainer = document.createElement('div')
-  musicContainer.className = 'music-container'
-  document.body.appendChild(musicContainer)
-  
-  // 歌曲信息显示
-  const songInfo = document.createElement('div')
-  songInfo.className = 'song-info'
-  songInfo.innerHTML = `
-    <div class="song-title">🎵 Peaceful Piano</div>
-    <div class="song-artist">平静的钢琴曲</div>
+  // 音乐播放器
+  const player = document.createElement('div')
+  player.className = 'music-player'
+  player.innerHTML = `
+    <div class="music-info">
+      <div class="music-disc">
+        <div class="disc-inner"></div>
+      </div>
+      <div class="music-text">
+        <div class="music-title">Peaceful Piano</div>
+        <div class="music-desc">平静的钢琴曲</div>
+      </div>
+    </div>
+    <div class="music-controls">
+      <button class="music-btn" title="播放/暂停">
+        <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M8 5v14l11-7z"/>
+        </svg>
+        <svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" style="display:none;">
+          <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/>
+        </svg>
+      </button>
+      <div class="volume-wrapper">
+        <button class="volume-btn" title="音量">
+          <svg class="icon-volume" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/>
+          </svg>
+        </button>
+        <div class="volume-slider-wrapper">
+          <input type="range" class="volume-slider" min="0" max="100" value="30" orient="vertical">
+        </div>
+      </div>
+    </div>
   `
-  musicContainer.appendChild(songInfo)
-  
-  // 控制按钮
-  const musicBtn = document.createElement('div')
-  musicBtn.className = 'music-btn'
-  musicBtn.innerHTML = '🎵'
-  musicBtn.title = '播放/暂停背景音乐'
-  musicContainer.appendChild(musicBtn)
-  
-  // 音量控制
-  const volumeControl = document.createElement('div')
-  volumeControl.className = 'volume-control'
-  volumeControl.innerHTML = `
-    <span class="volume-icon">🔊</span>
-    <input type="range" class="volume-slider" min="0" max="100" value="30">
-  `
-  musicContainer.appendChild(volumeControl)
+  document.body.appendChild(player)
   
   // 音频对象
   const audio = new Audio('/bgm.mp3')
@@ -87,88 +93,68 @@ onMounted(() => {
   
   let isPlaying = false
   
-  // 更新音量图标
-  const updateVolumeIcon = (volume) => {
-    const icon = volumeControl.querySelector('.volume-icon')
-    if (volume === 0) {
-      icon.innerHTML = '🔇'
-    } else if (volume < 50) {
-      icon.innerHTML = '🔉'
+  // DOM 元素
+  const musicBtn = player.querySelector('.music-btn')
+  const iconPlay = musicBtn.querySelector('.icon-play')
+  const iconPause = musicBtn.querySelector('.icon-pause')
+  const volumeBtn = player.querySelector('.volume-btn')
+  const volumeSlider = player.querySelector('.volume-slider')
+  const volumeWrapper = player.querySelector('.volume-slider-wrapper')
+  const musicDisc = player.querySelector('.music-disc')
+  
+  // 更新播放按钮图标
+  const updatePlayIcon = () => {
+    if (isPlaying) {
+      iconPlay.style.display = 'none'
+      iconPause.style.display = 'block'
+      musicDisc.classList.add('rotating')
     } else {
-      icon.innerHTML = '🔊'
+      iconPlay.style.display = 'block'
+      iconPause.style.display = 'none'
+      musicDisc.classList.remove('rotating')
     }
   }
   
-  // 音量滑块事件
-  const volumeSlider = volumeControl.querySelector('.volume-slider')
+  // 播放/暂停
+  const togglePlay = () => {
+    if (isPlaying) {
+      audio.pause()
+      isPlaying = false
+      player.classList.remove('active')
+    } else {
+      audio.play().catch(() => {})
+      isPlaying = true
+      player.classList.add('active')
+    }
+    updatePlayIcon()
+  }
+  
+  musicBtn.addEventListener('click', (e) => {
+    e.stopPropagation()
+    togglePlay()
+  })
+  
+  // 音量控制
+  let showVolumeTimeout
+  
+  volumeBtn.addEventListener('click', (e) => {
+    e.stopPropagation()
+    volumeWrapper.classList.toggle('show')
+  })
+  
   volumeSlider.addEventListener('input', (e) => {
     const value = e.target.value
     audio.volume = value / 100
-    updateVolumeIcon(value)
   })
   
-  // 鼠标悬停显示控制
-  musicContainer.addEventListener('mouseenter', () => {
-    musicContainer.classList.add('expanded')
+  // 点击其他地方关闭音量滑块
+  document.addEventListener('click', () => {
+    volumeWrapper.classList.remove('show')
   })
   
-  musicContainer.addEventListener('mouseleave', () => {
-    setTimeout(() => {
-      musicContainer.classList.remove('expanded')
-    }, 500)
-  })
-  
-  // 尝试自动播放（浏览器可能阻止）
-  const tryAutoPlay = async () => {
-    try {
-      await audio.play()
-      isPlaying = true
-      musicBtn.classList.add('playing')
-      musicBtn.innerHTML = '⏸️'
-      musicContainer.classList.add('active')
-    } catch (e) {
-      console.log('自动播放被阻止，需要用户交互')
-      // 第一次点击任意位置时尝试播放
-      document.addEventListener('click', () => {
-        if (!isPlaying) {
-          audio.play().catch(() => {})
-          isPlaying = true
-          musicBtn.classList.add('playing')
-          musicBtn.innerHTML = '⏸️'
-          musicContainer.classList.add('active')
-        }
-      }, { once: true })
-    }
-  }
-  
-  // 页面加载后尝试自动播放
-  setTimeout(tryAutoPlay, 1000)
-  
-  // 播放/暂停控制
-  musicBtn.addEventListener('click', (e) => {
-    e.stopPropagation()
-    if (isPlaying) {
-      audio.pause()
-      musicBtn.classList.remove('playing')
-      musicBtn.innerHTML = '🎵'
-      musicContainer.classList.remove('active')
-    } else {
-      audio.play().catch(() => {
-        console.log('播放失败，请检查音乐文件')
-      })
-      musicBtn.classList.add('playing')
-      musicBtn.innerHTML = '⏸️'
-      musicContainer.classList.add('active')
-    }
-    isPlaying = !isPlaying
-  })
-  
-  // 点击容器其他区域也切换播放
-  musicContainer.addEventListener('click', (e) => {
-    if (e.target !== volumeSlider && !e.target.classList.contains('volume-icon')) {
-      // 触发播放/暂停
-      musicBtn.click()
-    }
-  })
+  // 尝试自动播放
+  setTimeout(() => {
+    togglePlay()
+  }, 1000)
 })
 </script>
