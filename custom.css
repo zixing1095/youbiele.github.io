@@ -149,114 +149,212 @@
   animation: fadeIn 0.6s ease-out;
 }
 
-/* 音乐播放器容器 */
-.music-container {
+/* 🎵 音乐播放器 - 现代化设计 */
+
+.music-player {
   position: fixed;
-  bottom: 20px;
-  right: 20px;
+  bottom: 24px;
+  right: 24px;
   z-index: 100;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  gap: 8px;
-  transition: all 0.3s ease;
+  gap: 12px;
+  font-family: var(--vp-font-family-base);
 }
 
-/* 歌曲信息卡片 */
-.song-info {
-  background: var(--vp-c-bg);
-  border: 1px solid var(--vp-c-divider);
-  border-radius: 12px;
-  padding: 12px 16px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
-  opacity: 0;
-  transform: translateY(10px) scale(0.95);
-  transition: all 0.3s ease;
-  pointer-events: none;
-  min-width: 200px;
-}
-
-.song-info .song-title {
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--vp-c-text);
-  margin-bottom: 4px;
+/* 歌曲信息 */
+.music-info {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 12px;
+  background: var(--vp-c-bg);
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 16px;
+  padding: 10px 16px 10px 10px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  opacity: 0;
+  transform: translateX(20px);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
 }
 
-.song-info .song-artist {
-  font-size: 12px;
-  color: var(--vp-c-text-2);
-  opacity: 0.8;
-}
-
-/* 展开时显示歌曲信息 */
-.music-container.expanded .song-info,
-.music-container.active .song-info {
+.music-player.active .music-info {
   opacity: 1;
-  transform: translateY(0) scale(1);
+  transform: translateX(0);
+  pointer-events: auto;
 }
 
-/* 播放按钮 */
-.music-btn {
-  background: linear-gradient(135deg, var(--vp-c-brand), var(--vp-c-brand-dark));
+/* 黑胶唱片动画 */
+.music-disc {
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
-  width: 56px;
-  height: 56px;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
   display: flex;
   align-items: center;
   justify-content: center;
-  cursor: pointer;
-  box-shadow: 0 4px 16px rgba(74, 158, 255, 0.4);
-  transition: all 0.3s ease;
-  font-size: 24px;
   flex-shrink: 0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  position: relative;
+  overflow: hidden;
 }
 
-.music-btn:hover {
-  transform: scale(1.1);
-  box-shadow: 0 6px 20px rgba(74, 158, 255, 0.6);
+.music-disc::before {
+  content: '';
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--vp-c-brand), var(--vp-c-brand-dark));
+  z-index: 2;
 }
 
-.music-btn.playing {
-  animation: rotate 3s linear infinite;
-  background: linear-gradient(135deg, #4ade80, #22c55e);
+.disc-inner {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  position: relative;
 }
 
-@keyframes rotate {
+.disc-inner::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60%;
+  height: 60%;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.music-disc.rotating {
+  animation: rotateDisc 3s linear infinite;
+}
+
+@keyframes rotateDisc {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
 
-/* 音量控制 */
-.volume-control {
-  background: var(--vp-c-bg);
-  border: 1px solid var(--vp-c-divider);
-  border-radius: 20px;
-  padding: 8px 12px;
+/* 歌曲文字 */
+.music-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 120px;
+}
+
+.music-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--vp-c-text);
+  line-height: 1.4;
+}
+
+.music-desc {
+  font-size: 12px;
+  color: var(--vp-c-text-2);
+  opacity: 0.8;
+  line-height: 1.3;
+}
+
+/* 控制按钮区域 */
+.music-controls {
   display: flex;
   align-items: center;
   gap: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  opacity: 0;
-  transform: translateX(20px);
-  transition: all 0.3s ease;
-  pointer-events: none;
 }
 
-.music-container.expanded .volume-control {
-  opacity: 1;
-  transform: translateX(0);
-}
-
-.volume-control .volume-icon {
-  font-size: 18px;
+/* 播放按钮 */
+.music-btn {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  border: none;
+  background: linear-gradient(135deg, var(--vp-c-brand) 0%, var(--vp-c-brand-dark) 100%);
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 16px rgba(74, 158, 255, 0.4);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  padding: 0;
   flex-shrink: 0;
 }
 
-.volume-control .volume-slider {
+.music-btn:hover {
+  transform: scale(1.08);
+  box-shadow: 0 6px 24px rgba(74, 158, 255, 0.6);
+}
+
+.music-btn:active {
+  transform: scale(0.95);
+}
+
+.music-btn svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* 音量控制 */
+.volume-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.volume-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--vp-c-divider);
+  background: var(--vp-c-bg);
+  color: var(--vp-c-text);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  padding: 0;
+}
+
+.volume-btn:hover {
+  background: var(--vp-c-bg-soft);
+  border-color: var(--vp-c-brand);
+  color: var(--vp-c-brand);
+}
+
+.volume-btn svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* 音量滑块 */
+.volume-slider-wrapper {
+  position: absolute;
+  right: 48px;
+  bottom: 50%;
+  transform: translateY(50%) scaleX(0);
+  transform-origin: right center;
+  opacity: 0;
+  transition: all 0.3s ease;
+  background: var(--vp-c-bg);
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 8px;
+  padding: 8px 6px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.volume-wrapper.show .volume-slider-wrapper {
+  opacity: 1;
+  transform: translateY(50%) scaleX(1);
+}
+
+.volume-slider {
   -webkit-appearance: none;
   appearance: none;
   width: 80px;
@@ -265,6 +363,7 @@
   background: var(--vp-c-bg-soft);
   outline: none;
   cursor: pointer;
+  writing-mode: horizontal-lr;
 }
 
 .volume-slider::-webkit-slider-thumb {
@@ -273,59 +372,89 @@
   width: 16px;
   height: 16px;
   border-radius: 50%;
-  background: var(--vp-c-brand);
+  background: linear-gradient(135deg, var(--vp-c-brand), var(--vp-c-brand-dark));
   cursor: pointer;
+  box-shadow: 0 2px 6px rgba(74, 158, 255, 0.4);
   transition: all 0.2s ease;
 }
 
 .volume-slider::-webkit-slider-thumb:hover {
   transform: scale(1.2);
-  background: var(--vp-c-brand-dark);
+  box-shadow: 0 3px 10px rgba(74, 158, 255, 0.6);
 }
 
 .volume-slider::-moz-range-thumb {
   width: 16px;
   height: 16px;
   border-radius: 50%;
-  background: var(--vp-c-brand);
+  background: linear-gradient(135deg, var(--vp-c-brand), var(--vp-c-brand-dark));
   cursor: pointer;
   border: none;
+  box-shadow: 0 2px 6px rgba(74, 158, 255, 0.4);
   transition: all 0.2s ease;
 }
 
 .volume-slider::-moz-range-thumb:hover {
   transform: scale(1.2);
-  background: var(--vp-c-brand-dark);
+  box-shadow: 0 3px 10px rgba(74, 158, 255, 0.6);
+}
+
+/* 暗色主题适配 */
+.dark .music-disc {
+  background: linear-gradient(135deg, #0f3460 0%, #16213e 50%, #1a1a2e 100%);
+}
+
+.dark .music-info {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
 }
 
 /* 移动端适配 */
 @media (max-width: 768px) {
-  .music-container {
-    bottom: 15px;
-    right: 15px;
+  .music-player {
+    bottom: 16px;
+    right: 16px;
   }
   
-  .music-btn {
-    width: 50px;
-    height: 50px;
-    font-size: 22px;
+  .music-info {
+    padding: 8px 12px 8px 8px;
+    border-radius: 12px;
   }
   
-  .song-info {
-    min-width: 160px;
-    padding: 10px 12px;
+  .music-disc {
+    width: 36px;
+    height: 36px;
   }
   
-  .song-info .song-title {
+  .music-disc::before {
+    width: 12px;
+    height: 12px;
+  }
+  
+  .music-title {
     font-size: 13px;
   }
   
-  .song-info .song-artist {
+  .music-desc {
     font-size: 11px;
   }
   
-  .volume-control .volume-slider {
-    width: 60px;
+  .music-btn {
+    width: 48px;
+    height: 48px;
+  }
+  
+  .music-btn svg {
+    width: 22px;
+    height: 22px;
+  }
+  
+  .volume-btn {
+    width: 36px;
+    height: 36px;
+  }
+  
+  .volume-slider {
+    width: 70px;
   }
 }
 
