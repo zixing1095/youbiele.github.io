@@ -1,0 +1,192 @@
+/* 自定义样式 - 阿野的野径 */
+
+/* 全局变量 */
+:root {
+  --vp-c-brand: #4a9eff;
+  --vp-c-brand-light: #6eb4ff;
+  --vp-c-brand-dark: #2d7dd2;
+  --vp-c-text: #2c3e50;
+  --vp-c-bg: #ffffff;
+  --vp-c-bg-soft: #f6f8fa;
+}
+
+/* 暗色主题 */
+.dark {
+  --vp-c-brand: #58a6ff;
+  --vp-c-brand-light: #79c0ff;
+  --vp-c-brand-dark: #388bfd;
+  --vp-c-text: #e6edf3;
+  --vp-c-bg: #0d1117;
+  --vp-c-bg-soft: #161b22;
+}
+
+/* 首页标题动效 */
+.VPHero .name {
+  background: linear-gradient(90deg, var(--vp-c-brand), #9b5cff, #ff6b9d);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradientShift 3s ease infinite;
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* 导航栏悬停动效 */
+.VPNavBarMenuLink {
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+.VPNavBarMenuLink::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--vp-c-brand);
+  transition: width 0.3s ease;
+}
+
+.VPNavBarMenuLink:hover::after {
+  width: 100%;
+}
+
+.VPNavBarMenuLink:hover {
+  color: var(--vp-c-brand);
+}
+
+/* 按钮悬停动效 */
+.VPButton {
+  transition: all 0.3s ease !important;
+  transform: translateY(0);
+}
+
+.VPButton:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 4px 12px rgba(74, 158, 255, 0.4);
+}
+
+/* 卡片悬停动效 */
+.VPFeature {
+  transition: all 0.3s ease;
+  border: 1px solid var(--vp-c-divider);
+}
+
+.VPFeature:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(74, 158, 255, 0.2);
+  border-color: var(--vp-c-brand);
+}
+
+/* 文章卡片 */
+.vp-doc a {
+  color: var(--vp-c-brand);
+  transition: color 0.3s ease;
+}
+
+.vp-doc a:hover {
+  color: var(--vp-c-brand-light);
+  text-decoration: underline;
+}
+
+/* 代码块优化 */
+.vp-doc div[class*='language-'] {
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* 表格优化 */
+.vp-doc table {
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* 引用块优化 */
+.vp-doc blockquote {
+  border-left: 4px solid var(--vp-c-brand);
+  background: var(--vp-c-bg-soft);
+  padding: 12px 16px;
+  border-radius: 0 8px 8px 0;
+}
+
+/* 图片圆角 */
+.vp-doc img {
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* 滚动条美化 */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--vp-c-bg-soft);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--vp-c-brand);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--vp-c-brand-dark);
+}
+
+/* 加载动画 */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.VPHero, .VPFeature, .VPNavBar {
+  animation: fadeIn 0.6s ease-out;
+}
+
+/* 音乐播放器样式 */
+.music-player {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 100;
+  background: var(--vp-c-bg);
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
+}
+
+.music-player:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 16px rgba(74, 158, 255, 0.4);
+}
+
+.music-player.playing {
+  animation: rotate 3s linear infinite;
+}
+
+@keyframes rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* 回到顶部按钮 */
+.VPSwitch {
+  transition: all 0.3s ease;
+}
+
+.VPSwitch:hover {
+  transform: scale(1.1);
+}
