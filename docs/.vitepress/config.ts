@@ -4,11 +4,15 @@ export default defineConfig({
   title: "阿野的野径",
   description: "记录普通人的逆袭之路",
   lastUpdated: true,
+  base: '/',
   
   head: [
     ['link', { rel: 'icon', href: '/favicon.png' }],
     ['meta', { name: 'keywords', content: '阿野，双非本，Python 学习，在职读研，个人成长，逆袭' }],
     ['meta', { name: 'author', content: '阿野' }],
+    ['link', { rel: 'canonical', href: 'https://youbeile1203.cn/' }],
+    // 自定义 CSS
+    ['link', { rel: 'stylesheet', href: '/custom.css' }],
   ],
   
   themeConfig: {
@@ -27,7 +31,7 @@ export default defineConfig({
         { 
           text: '野径日记', 
           items: [
-            { text: 'Day1 - 我是阿野，这是我的野径', link: '/blog/day1-wild-path' },
+            { text: 'Day1 - 我是阿野', link: '/blog/day1-wild-path' },
           ]
         },
       ],
@@ -43,7 +47,7 @@ export default defineConfig({
         { 
           text: '英语学习', 
           items: [
-            { text: 'Day1 - 听力入门', link: '/learn/english/day1' },
+            { text: '学习路线', link: '/learn/english/' },
           ]
         },
       ],
@@ -51,7 +55,7 @@ export default defineConfig({
         { 
           text: 'OpenClaw', 
           items: [
-            { text: 'Day1 - 自动化发布小红书', link: '/tools/openclaw/day1' },
+            { text: 'Day1 - 自动化发布', link: '/tools/openclaw/day1' },
           ]
         },
       ],
@@ -60,7 +64,6 @@ export default defineConfig({
     // 社交链接
     socialLinks: [
       { icon: 'github', link: 'https://github.com/zixing1095' },
-      { icon: 'discord', link: 'https://xiaohongshu.com/user/profile/xxx' },
     ],
     
     // 页脚
@@ -72,6 +75,17 @@ export default defineConfig({
     // 搜索
     search: {
       provider: 'local',
+    },
+    
+    // 大纲
+    outline: {
+      label: '本页目录',
+    },
+    
+    // 上一篇/下一篇
+    docFooter: {
+      prev: '上一篇',
+      next: '下一篇',
     },
   },
 })
