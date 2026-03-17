@@ -54,6 +54,7 @@ docker-compose up -d
 ## 📚 使用教程
 
 - [Day1 - 自动化发布小红书](/tools/openclaw/day1)
+- [Day2 - 我也"养虾"了，说说大实话](/tools/openclaw/day2)
 
 ## 🔗 相关链接
 
