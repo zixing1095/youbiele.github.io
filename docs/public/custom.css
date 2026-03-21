@@ -195,17 +195,48 @@
   background: linear-gradient(135deg, #0f3460, #16213e, #1a1a2e);
 }
 
-/* 访问量统计 - 页脚底部 */
+/* 访问量统计 - 页脚美化 */
 #busuanzi_container_site_pv {
-  display: inline-block;
-  margin-top: 4px;
-  font-size: 11px;
-  opacity: 0.6;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 8px;
+  padding: 4px 12px;
+  background: linear-gradient(135deg, rgba(74, 158, 255, 0.08), rgba(74, 158, 255, 0.02));
+  border: 1px solid rgba(74, 158, 255, 0.2);
+  border-radius: 16px;
+  font-size: 12px;
+  color: var(--vp-c-text-2);
+  transition: all 0.3s ease;
+}
+
+#busuanzi_container_site_pv:hover {
+  background: linear-gradient(135deg, rgba(74, 158, 255, 0.12), rgba(74, 158, 255, 0.04));
+  border-color: rgba(74, 158, 255, 0.35);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(74, 158, 255, 0.15);
 }
 
 #busuanzi_value_site_pv {
-  font-weight: 600;
-  color: var(--vp-c-brand);
+  font-weight: 700;
+  font-size: 13px;
+  background: linear-gradient(135deg, var(--vp-c-brand), var(--vp-c-brand-dark));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  min-width: 24px;
+  display: inline-block;
+}
+
+/* 暗色主题适配 */
+.dark #busuanzi_container_site_pv {
+  background: linear-gradient(135deg, rgba(74, 158, 255, 0.1), rgba(74, 158, 255, 0.03));
+  border-color: rgba(74, 158, 255, 0.25);
+}
+
+.dark #busuanzi_container_site_pv:hover {
+  background: linear-gradient(135deg, rgba(74, 158, 255, 0.15), rgba(74, 158, 255, 0.06));
+  border-color: rgba(74, 158, 255, 0.4);
 }
 
 /* 移动端 */
