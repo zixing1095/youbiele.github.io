@@ -1,125 +1,179 @@
+/* ===== 性能优化 ===== */
+
+/* 图片懒加载优化 */
+img {
+  content-visibility: auto;
+}
+
+/* 减少重绘 */
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* 平滑滚动 */
+html {
+  scroll-behavior: smooth;
+}
+
+/* 减少动画对性能的影响 */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
 /* ===== 页脚美化 - 专业设计 ===== */
 
 /* 页脚容器 */
-.VPFooter {
+.VPFooter,
+footer.VPFooter {
   border-top: 1px solid var(--vp-c-divider) !important;
   padding: 32px 24px 24px !important;
-  background: var(--vp-c-bg);
+  background: var(--vp-c-bg) !important;
+  margin-top: 0 !important;
+}
+
+.VPFooter .container {
+  max-width: 1200px !important;
+  margin: 0 auto !important;
+  padding: 0 !important;
+}
+
+.VPFooter .message {
+  padding: 0 !important;
+  margin: 0 !important;
+  line-height: 1.6 !important;
 }
 
 /* 页脚内容容器 */
 .footer-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 16px;
-  max-width: 1200px;
-  margin: 0 auto;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  gap: 16px !important;
+  max-width: 1200px !important;
+  margin: 0 auto !important;
 }
 
 /* 标语 */
 .footer-slogan {
-  font-size: 15px;
-  font-weight: 600;
-  color: var(--vp-c-text-1);
-  letter-spacing: 0.5px;
-  text-align: center;
-  line-height: 1.6;
+  font-size: 15px !important;
+  font-weight: 600 !important;
+  color: var(--vp-c-text-1) !important;
+  letter-spacing: 0.5px !important;
+  text-align: center !important;
+  line-height: 1.6 !important;
+  margin: 0 !important;
+  padding: 0 !important;
 }
 
 /* 分隔线 */
 .footer-divider {
-  width: 60px;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, var(--vp-c-brand), transparent);
-  border-radius: 2px;
-  opacity: 0.6;
+  width: 60px !important;
+  height: 2px !important;
+  background: linear-gradient(90deg, transparent, var(--vp-c-brand), transparent) !important;
+  border-radius: 2px !important;
+  opacity: 0.6 !important;
+  margin: 4px 0 !important;
 }
 
 /* 元信息行（版权 + 链接） */
 .footer-meta {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 13px;
-  color: var(--vp-c-text-2);
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  font-size: 13px !important;
+  color: var(--vp-c-text-2) !important;
+  margin: 0 !important;
+  padding: 0 !important;
 }
 
 .footer-copyright {
-  font-weight: 500;
+  font-weight: 500 !important;
+  margin: 0 !important;
+  padding: 0 !important;
 }
 
 .footer-divider-dot {
-  opacity: 0.5;
-  font-size: 10px;
+  opacity: 0.5 !important;
+  font-size: 10px !important;
+  margin: 0 2px !important;
 }
 
 .footer-link {
-  color: var(--vp-c-text-2);
-  text-decoration: none;
-  transition: all 0.2s ease;
-  font-weight: 500;
+  color: var(--vp-c-text-2) !important;
+  text-decoration: none !important;
+  transition: all 0.2s ease !important;
+  font-weight: 500 !important;
 }
 
 .footer-link:hover {
-  color: var(--vp-c-brand);
-  text-decoration: underline;
-  text-underline-offset: 3px;
+  color: var(--vp-c-brand) !important;
+  text-decoration: underline !important;
+  text-underline-offset: 3px !important;
 }
 
 /* 访问量统计 - 胶囊设计 */
 .footer-stats {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 6px 14px;
-  background: linear-gradient(135deg, rgba(74, 158, 255, 0.08), rgba(74, 158, 255, 0.02));
-  border: 1px solid rgba(74, 158, 255, 0.2);
-  border-radius: 20px;
-  font-size: 13px;
-  color: var(--vp-c-text-2);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  cursor: default;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  padding: 6px 14px !important;
+  background: linear-gradient(135deg, rgba(74, 158, 255, 0.08), rgba(74, 158, 255, 0.02)) !important;
+  border: 1px solid rgba(74, 158, 255, 0.2) !important;
+  border-radius: 20px !important;
+  font-size: 13px !important;
+  color: var(--vp-c-text-2) !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  cursor: default !important;
+  margin: 4px 0 0 0 !important;
 }
 
 .footer-stats:hover {
-  background: linear-gradient(135deg, rgba(74, 158, 255, 0.12), rgba(74, 158, 255, 0.04));
-  border-color: rgba(74, 158, 255, 0.35);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(74, 158, 255, 0.15);
+  background: linear-gradient(135deg, rgba(74, 158, 255, 0.12), rgba(74, 158, 255, 0.04)) !important;
+  border-color: rgba(74, 158, 255, 0.35) !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 4px 12px rgba(74, 158, 255, 0.15) !important;
 }
 
 .stats-icon {
-  font-size: 14px;
-  line-height: 1;
+  font-size: 14px !important;
+  line-height: 1 !important;
 }
 
 .stats-label {
-  font-weight: 500;
-  opacity: 0.8;
+  font-weight: 500 !important;
+  opacity: 0.8 !important;
 }
 
 .stats-count {
-  font-weight: 700;
-  font-size: 14px;
-  background: linear-gradient(135deg, var(--vp-c-brand), var(--vp-c-brand-dark));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  min-width: 32px;
-  text-align: center;
-  display: inline-block;
+  font-weight: 700 !important;
+  font-size: 14px !important;
+  background: linear-gradient(135deg, var(--vp-c-brand), var(--vp-c-brand-dark)) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+  min-width: 32px !important;
+  text-align: center !important;
+  display: inline-block !important;
 }
 
 /* 暗色主题适配 */
 .dark .footer-stats {
-  background: linear-gradient(135deg, rgba(74, 158, 255, 0.1), rgba(74, 158, 255, 0.03));
-  border-color: rgba(74, 158, 255, 0.25);
+  background: linear-gradient(135deg, rgba(74, 158, 255, 0.1), rgba(74, 158, 255, 0.03)) !important;
+  border-color: rgba(74, 158, 255, 0.25) !important;
 }
 
 .dark .footer-stats:hover {
-  background: linear-gradient(135deg, rgba(74, 158, 255, 0.15), rgba(74, 158, 255, 0.06));
-  border-color: rgba(74, 158, 255, 0.4);
+  background: linear-gradient(135deg, rgba(74, 158, 255, 0.15), rgba(74, 158, 255, 0.06)) !important;
+  border-color: rgba(74, 158, 255, 0.4) !important;
 }
 
 /* 移动端适配 */
@@ -129,60 +183,60 @@
   }
   
   .footer-content {
-    gap: 14px;
+    gap: 14px !important;
   }
   
   .footer-slogan {
-    font-size: 14px;
+    font-size: 14px !important;
   }
   
   .footer-divider {
-    width: 48px;
+    width: 48px !important;
   }
   
   .footer-meta {
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 8px;
-    font-size: 12px;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    gap: 8px !important;
+    font-size: 12px !important;
   }
   
   .footer-divider-dot {
-    display: none;
+    display: none !important;
   }
   
   .footer-stats {
-    padding: 5px 12px;
-    font-size: 12px;
+    padding: 5px 12px !important;
+    font-size: 12px !important;
   }
   
   .stats-count {
-    font-size: 13px;
-    min-width: 28px;
+    font-size: 13px !important;
+    min-width: 28px !important;
   }
 }
 
 /* 超小屏幕 */
 @media (max-width: 480px) {
   .footer-slogan {
-    font-size: 13px;
+    font-size: 13px !important;
   }
   
   .footer-stats {
-    padding: 4px 10px;
-    gap: 6px;
+    padding: 4px 10px !important;
+    gap: 6px !important;
   }
   
   .stats-icon {
-    font-size: 13px;
+    font-size: 13px !important;
   }
   
   .stats-label {
-    display: none;
+    display: none !important;
   }
   
   .stats-count {
-    font-size: 13px;
+    font-size: 13px !important;
   }
 }
 

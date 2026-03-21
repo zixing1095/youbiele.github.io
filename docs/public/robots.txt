@@ -1,23 +1,31 @@
-# robots.txt - 搜索引擎爬虫协议
+# 阿野的野径 - Robots.txt
+# https://youbeile1203.cn/
 
 User-agent: *
 Allow: /
 
 # 允许所有搜索引擎抓取
+Allow: /blog/
+Allow: /learn/
+Allow: /tools/
+Allow: /about/
+
+# Sitemap 位置
 Sitemap: https://youbeile1203.cn/sitemap.xml
 
-# 主要搜索引擎
+# 常见搜索引擎
 User-agent: Googlebot
-Allow: /
-
-User-agent: Baiduspider
 Allow: /
 
 User-agent: Bingbot
 Allow: /
 
-User-agent: YandexBot
+User-agent: Baiduspider
 Allow: /
 
-# 爬取延迟（避免服务器压力）
-Crawl-delay: 1
+User-agent: Bytespider
+Allow: /
+
+# 不抓取的部分（如有）
+# Disallow: /admin/
+# Disallow: /private/
