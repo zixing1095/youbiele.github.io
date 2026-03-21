@@ -2,7 +2,7 @@
 <html lang="en-US" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
+    
     <title>OpenClaw 教程 | 阿野的野径</title>
     <meta name="description" content="记录普通人的逆袭之路 - 双非本科、在职读研、Python 学习、英语提升、个人成长">
     <meta name="generator" content="VitePress v1.6.4">
@@ -13,22 +13,33 @@
     <link rel="preload" href="/assets/inter-roman-latin.Di8DUHzh.woff2" as="font" type="font/woff2" crossorigin="">
     <link rel="modulepreload" href="/assets/chunks/theme.BHwkvy2A.js">
     <link rel="modulepreload" href="/assets/chunks/framework.BZohXCq9.js">
-    <link rel="modulepreload" href="/assets/tools_openclaw_index.md.ICojMPC8.lean.js">
+    <link rel="modulepreload" href="/assets/tools_openclaw_index.md.BRAHoDLg.lean.js">
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
     <link rel="apple-touch-icon" href="/favicon.svg">
     <meta name="theme-color" content="#4a9eff">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="default">
-    <meta name="keywords" content="阿野，双非本，Python 学习，在职读研，个人成长，逆袭，英语学习，自律，博客">
+    <meta name="keywords" content="阿野，双非本，Python 学习，在职读研，个人成长，逆袭，英语学习，自律，博客，编程，效率工具">
     <meta name="author" content="阿野">
     <meta name="contact" content="youbeile1203@foxmail.com">
-    <meta name="robots" content="index, follow">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
     <link rel="canonical" href="https://youbeile1203.cn/">
+    <meta name="rating" content="general">
+    <meta name="language" content="zh-CN">
+    <meta name="geo.region" content="CN">
+    <meta name="geo.placename" content="China">
+    <meta name="geo.position" content="35.8617;104.1954">
+    <meta name="ICBM" content="35.8617, 104.1954">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="mobile-web-app-capable" content="yes">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://youbeile1203.cn/">
     <meta property="og:title" content="阿野的野径 - 记录普通人的逆袭之路">
     <meta property="og:description" content="双非本科逆袭，在职读研，Python 学习，英语提升，个人成长记录">
     <meta property="og:image" content="https://youbeile1203.cn/hero.svg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
     <meta property="og:locale" content="zh_CN">
     <meta property="og:site_name" content="阿野的野径">
     <meta name="twitter:card" content="summary_large_image">
@@ -36,9 +47,11 @@
     <meta name="twitter:title" content="阿野的野径 - 记录普通人的逆袭之路">
     <meta name="twitter:description" content="双非本科逆袭，在职读研，Python 学习，英语提升，个人成长记录">
     <meta name="twitter:image" content="https://youbeile1203.cn/hero.svg">
-    <meta name="theme-color" content="#4a9eff">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="twitter:creator" content="@youbeile1203">
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
+    <link rel="preconnect" href="https://busuanzi.ibruce.info" crossorigin="anonymous">
+    <link rel="dns-prefetch" href="https://busuanzi.ibruce.info">
     <link rel="stylesheet" href="/custom.css">
     <script type="application/ld+json">{
       "@context": "https://schema.org",
@@ -48,14 +61,21 @@
       "description": "记录普通人的逆袭之路",
       "author": {
         "@type": "Person",
-        "name": "阿野"
+        "name": "阿野",
+        "email": "youbeile1203@foxmail.com"
       },
       "publisher": {
         "@type": "Person",
         "name": "阿野"
+      },
+      "inLanguage": "zh-CN",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://youbeile1203.cn/?q={search_term_string}",
+        "query-input": "required name=search_term_string"
       }
     }</script>
-    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
     <script id="check-dark-mode">(()=>{const e=localStorage.getItem("vitepress-theme-appearance")||"auto",a=window.matchMedia("(prefers-color-scheme: dark)").matches;(!e||e==="auto"?a:e==="dark")&&document.documentElement.classList.add("dark")})();</script>
     <script id="check-mac-os">document.documentElement.classList.toggle("mac",/Mac|iPhone|iPod|iPad/i.test(navigator.platform));</script>
   </head>
@@ -79,7 +99,7 @@
 <span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">npm</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> start</span></span>
 <span class="line"></span>
 <span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"># 或者使用 Docker</span></span>
-<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">docker-compose</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> up</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;"> -d</span></span></code></pre></div><h2 id="📚-使用教程" tabindex="-1"><a class="header-anchor" href="#📚-使用教程">¶</a> 📚 使用教程</h2><ul><li><a href="/tools/openclaw/day1.html">Day1 - 自动化发布小红书</a></li><li><a href="/tools/openclaw/day2.html">Day2 - 我也&quot;养虾&quot;了，说说大实话</a></li></ul><h2 id="🔗-相关链接" tabindex="-1"><a class="header-anchor" href="#🔗-相关链接">¶</a> 🔗 相关链接</h2><ul><li><a href="https://github.com/openclaw/openclaw" target="_blank" rel="noreferrer">GitHub 仓库</a></li><li><a href="https://docs.openclaw.ai" target="_blank" rel="noreferrer">官方文档</a></li><li><a href="https://discord.gg/clawd" target="_blank" rel="noreferrer">Discord 社区</a></li></ul><hr><blockquote><p><strong>效率提示</strong>：自动化不是替代思考，而是解放时间去思考更重要的事！</p></blockquote></div></div></main><footer class="VPDocFooter" data-v-39a288b8 data-v-e257564d><!--[--><!--]--><div class="edit-info" data-v-e257564d><!----><div class="last-updated" data-v-e257564d><p class="VPLastUpdated" data-v-e257564d data-v-e98dd255>Last updated: <time datetime="2026-03-21T05:02:36.000Z" data-v-e98dd255></time></p></div></div><nav class="prev-next" aria-labelledby="doc-footer-aria-label" data-v-e257564d><span class="visually-hidden" id="doc-footer-aria-label" data-v-e257564d>Pager</span><div class="pager" data-v-e257564d><!----></div><div class="pager" data-v-e257564d><a class="VPLink link pager-link next" href="/tools/openclaw/day1.html" data-v-e257564d><!--[--><span class="desc" data-v-e257564d>下一篇</span><span class="title" data-v-e257564d>Day1 - 自动化发布</span><!--]--></a></div></nav></footer><!--[--><!--]--></div></div></div><!--[--><!--]--></div></div><footer class="VPFooter has-sidebar" data-v-5d98c3a5 data-v-e315a0ad><div class="container" data-v-e315a0ad><p class="message" data-v-e315a0ad>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">docker-compose</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> up</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;"> -d</span></span></code></pre></div><h2 id="📚-使用教程" tabindex="-1"><a class="header-anchor" href="#📚-使用教程">¶</a> 📚 使用教程</h2><ul><li><a href="/tools/openclaw/day1.html">Day1 - 自动化发布小红书</a></li><li><a href="/tools/openclaw/day2.html">Day2 - 我也&quot;养虾&quot;了，说说大实话</a></li></ul><h2 id="🔗-相关链接" tabindex="-1"><a class="header-anchor" href="#🔗-相关链接">¶</a> 🔗 相关链接</h2><ul><li><a href="https://github.com/openclaw/openclaw" target="_blank" rel="noreferrer">GitHub 仓库</a></li><li><a href="https://docs.openclaw.ai" target="_blank" rel="noreferrer">官方文档</a></li><li><a href="https://discord.gg/clawd" target="_blank" rel="noreferrer">Discord 社区</a></li></ul><hr><blockquote><p><strong>效率提示</strong>：自动化不是替代思考，而是解放时间去思考更重要的事！</p></blockquote></div></div></main><footer class="VPDocFooter" data-v-39a288b8 data-v-e257564d><!--[--><!--]--><div class="edit-info" data-v-e257564d><!----><div class="last-updated" data-v-e257564d><p class="VPLastUpdated" data-v-e257564d data-v-e98dd255>Last updated: <time datetime="2026-03-21T11:11:39.000Z" data-v-e98dd255></time></p></div></div><nav class="prev-next" aria-labelledby="doc-footer-aria-label" data-v-e257564d><span class="visually-hidden" id="doc-footer-aria-label" data-v-e257564d>Pager</span><div class="pager" data-v-e257564d><!----></div><div class="pager" data-v-e257564d><a class="VPLink link pager-link next" href="/tools/openclaw/day1.html" data-v-e257564d><!--[--><span class="desc" data-v-e257564d>下一篇</span><span class="title" data-v-e257564d>Day1 - 自动化发布</span><!--]--></a></div></nav></footer><!--[--><!--]--></div></div></div><!--[--><!--]--></div></div><footer class="VPFooter has-sidebar" data-v-5d98c3a5 data-v-e315a0ad><div class="container" data-v-e315a0ad><p class="message" data-v-e315a0ad>
         <div class="footer-content">
           <div class="footer-slogan">野径不通，那就踩出一条路</div>
           <div class="footer-divider"></div>
@@ -95,7 +115,7 @@
           </div>
         </div>
       </p><!----></div></footer><!--[--><!--]--></div></div>
-    <script>window.__VP_HASH_MAP__=JSON.parse("{\"about.md\":\"BMq6rTyc\",\"blog_day1-wild-path.md\":\"DRoWSuvW\",\"blog_day2-diary-blog.md\":\"Drr0ovgS\",\"blog_day2-english.md\":\"dnFQ6glA\",\"blog_day2-openclaw.md\":\"zNkZhpxi\",\"blog_day2-python-start.md\":\"D4M6EBrC\",\"blog_index.md\":\"CDDYg-0y\",\"index.md\":\"2N48dCkK\",\"learn_english_index.md\":\"C5l2j8lF\",\"learn_python_day1.md\":\"DkACrWoM\",\"learn_python_index.md\":\"CCgrDlh3\",\"legal.md\":\"D5E3QxKh\",\"tools_openclaw_day1.md\":\"CGZjVwpi\",\"tools_openclaw_day2.md\":\"BqOEt_I2\",\"tools_openclaw_index.md\":\"ICojMPC8\"}");window.__VP_SITE_DATA__=JSON.parse("{\"lang\":\"en-US\",\"dir\":\"ltr\",\"title\":\"阿野的野径\",\"description\":\"记录普通人的逆袭之路 - 双非本科、在职读研、Python 学习、英语提升、个人成长\",\"base\":\"/\",\"head\":[],\"router\":{\"prefetchLinks\":true},\"appearance\":true,\"themeConfig\":{\"nav\":[{\"text\":\"首页\",\"link\":\"/\"},{\"text\":\"关于我\",\"link\":\"/about\"},{\"text\":\"野径日记\",\"link\":\"/blog/\"},{\"text\":\"学习笔记\",\"link\":\"/learn/\"},{\"text\":\"工具教程\",\"link\":\"/tools/\"}],\"sidebar\":{\"/blog/\":[{\"text\":\"野径日记\",\"items\":[{\"text\":\"Day1 - 我是阿野\",\"link\":\"/blog/day1-wild-path\"},{\"text\":\"Day2 - 博客搭建\",\"link\":\"/blog/day2-diary-blog\"}]}],\"/learn/python/\":[{\"text\":\"Python 学习\",\"items\":[{\"text\":\"Day1 - 环境搭建\",\"link\":\"/learn/python/day1\"}]}],\"/learn/english/\":[{\"text\":\"英语学习\",\"items\":[{\"text\":\"学习路线\",\"link\":\"/learn/english/\"}]}],\"/tools/openclaw/\":[{\"text\":\"OpenClaw\",\"items\":[{\"text\":\"Day1 - 自动化发布\",\"link\":\"/tools/openclaw/day1\"}]}]},\"socialLinks\":[{\"icon\":\"github\",\"link\":\"https://github.com/zixing1095\"}],\"footer\":{\"message\":\"\\n        <div class=\\\"footer-content\\\">\\n          <div class=\\\"footer-slogan\\\">野径不通，那就踩出一条路</div>\\n          <div class=\\\"footer-divider\\\"></div>\\n          <div class=\\\"footer-meta\\\">\\n            <span class=\\\"footer-copyright\\\">© 2026 阿野的野径</span>\\n            <span class=\\\"footer-divider-dot\\\">·</span>\\n            <a href=\\\"/legal\\\" class=\\\"footer-link\\\">法律声明</a>\\n          </div>\\n          <div class=\\\"footer-stats\\\">\\n            <span class=\\\"stats-icon\\\">👁️</span>\\n            <span class=\\\"stats-label\\\">访问量</span>\\n            <span id=\\\"busuanzi_value_site_pv\\\" class=\\\"stats-count\\\">--</span>\\n          </div>\\n        </div>\\n      \",\"copyright\":\"\"},\"search\":{\"provider\":\"local\"},\"outline\":{\"label\":\"本页目录\",\"level\":[2,3]},\"docFooter\":{\"prev\":\"上一篇\",\"next\":\"下一篇\"},\"socialIcons\":true},\"locales\":{},\"scrollOffset\":134,\"cleanUrls\":false}");</script>
+    <script>window.__VP_HASH_MAP__=JSON.parse("{\"about.md\":\"Cq6M7p9b\",\"blog_day1-wild-path.md\":\"DBptj9ic\",\"blog_day2-diary-blog.md\":\"CLycD9qY\",\"blog_day2-english.md\":\"CsJNV4wr\",\"blog_day2-openclaw.md\":\"DmirelR9\",\"blog_day2-python-start.md\":\"B0lw8PYO\",\"blog_index.md\":\"DmRdLHae\",\"index.md\":\"CP62fSuc\",\"learn_english_index.md\":\"D-Ram0eq\",\"learn_python_day1.md\":\"DLcht-Jp\",\"learn_python_index.md\":\"Cx4MzRIl\",\"legal.md\":\"D73CH93x\",\"tools_openclaw_day1.md\":\"BZCJQ6Ig\",\"tools_openclaw_day2.md\":\"qcoDXcdH\",\"tools_openclaw_index.md\":\"BRAHoDLg\"}");window.__VP_SITE_DATA__=JSON.parse("{\"lang\":\"en-US\",\"dir\":\"ltr\",\"title\":\"阿野的野径\",\"description\":\"记录普通人的逆袭之路 - 双非本科、在职读研、Python 学习、英语提升、个人成长\",\"base\":\"/\",\"head\":[],\"router\":{\"prefetchLinks\":true},\"appearance\":true,\"themeConfig\":{\"nav\":[{\"text\":\"首页\",\"link\":\"/\"},{\"text\":\"关于我\",\"link\":\"/about\"},{\"text\":\"野径日记\",\"link\":\"/blog/\"},{\"text\":\"学习笔记\",\"link\":\"/learn/\"},{\"text\":\"工具教程\",\"link\":\"/tools/\"}],\"sidebar\":{\"/blog/\":[{\"text\":\"野径日记\",\"items\":[{\"text\":\"Day1 - 我是阿野\",\"link\":\"/blog/day1-wild-path\"},{\"text\":\"Day2 - 博客搭建\",\"link\":\"/blog/day2-diary-blog\"}]}],\"/learn/python/\":[{\"text\":\"Python 学习\",\"items\":[{\"text\":\"Day1 - 环境搭建\",\"link\":\"/learn/python/day1\"}]}],\"/learn/english/\":[{\"text\":\"英语学习\",\"items\":[{\"text\":\"学习路线\",\"link\":\"/learn/english/\"}]}],\"/tools/openclaw/\":[{\"text\":\"OpenClaw\",\"items\":[{\"text\":\"Day1 - 自动化发布\",\"link\":\"/tools/openclaw/day1\"}]}]},\"socialLinks\":[{\"icon\":\"github\",\"link\":\"https://github.com/zixing1095\"}],\"footer\":{\"message\":\"\\n        <div class=\\\"footer-content\\\">\\n          <div class=\\\"footer-slogan\\\">野径不通，那就踩出一条路</div>\\n          <div class=\\\"footer-divider\\\"></div>\\n          <div class=\\\"footer-meta\\\">\\n            <span class=\\\"footer-copyright\\\">© 2026 阿野的野径</span>\\n            <span class=\\\"footer-divider-dot\\\">·</span>\\n            <a href=\\\"/legal\\\" class=\\\"footer-link\\\">法律声明</a>\\n          </div>\\n          <div class=\\\"footer-stats\\\">\\n            <span class=\\\"stats-icon\\\">👁️</span>\\n            <span class=\\\"stats-label\\\">访问量</span>\\n            <span id=\\\"busuanzi_value_site_pv\\\" class=\\\"stats-count\\\">--</span>\\n          </div>\\n        </div>\\n      \",\"copyright\":\"\"},\"search\":{\"provider\":\"local\"},\"outline\":{\"label\":\"本页目录\",\"level\":[2,3]},\"docFooter\":{\"prev\":\"上一篇\",\"next\":\"下一篇\"},\"socialIcons\":true},\"locales\":{},\"scrollOffset\":134,\"cleanUrls\":false}");</script>
     
   </body>
 </html>
