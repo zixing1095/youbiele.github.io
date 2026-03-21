@@ -63,6 +63,9 @@ export default defineConfig({
         "name": "阿野"
       }
     }`],
+    
+    // 不蒜子访问量统计
+    ['script', { async: true, src: '//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js' }],
   ],
   
   // Sitemap 配置
@@ -124,7 +127,7 @@ export default defineConfig({
     
     // 页脚
     footer: {
-      message: '野径不通，那就踩出一条路<br/><span style="font-size:12px;opacity:0.8;">© 2026 阿野的野径 | <a href="/legal" style="color:inherit;">法律声明</a></span>',
+      message: '野径不通，那就踩出一条路<br/><span style="font-size:12px;opacity:0.8;">© 2026 阿野的野径 | <a href="/legal" style="color:inherit;">法律声明</a></span><br/><span id="busuanzi_container_site_pv" style="font-size:11px;opacity:0.6;">👁️ 访问量：<span id="busuanzi_value_site_pv"></span></span>',
       copyright: '',
     },
     

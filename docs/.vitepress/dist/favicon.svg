@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <defs>
+    <linearGradient id="pathGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#4a9eff"/>
+      <stop offset="100%" style="stop-color:#9b5cff"/>
+    </linearGradient>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a1a2e"/>
+      <stop offset="100%" style="stop-color:#16213e"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- 背景 -->
+  <rect width="64" height="64" rx="12" fill="url(#bgGrad)"/>
+  
+  <!-- 路径/道路 -->
+  <path d="M32 52 L32 20" stroke="url(#pathGrad)" stroke-width="4" stroke-linecap="round" opacity="0.3"/>
+  <path d="M24 52 L32 28 L40 52" stroke="url(#pathGrad)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  
+  <!-- 山峰/野径象征 -->
+  <path d="M12 52 L24 32 L32 44 L40 28 L52 52 Z" fill="url(#pathGrad)" opacity="0.6"/>
+  
+  <!-- 文字：野 -->
+  <text x="32" y="48" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#ffffff" text-anchor="middle">野</text>
+  
+  <!-- 光点装饰 -->
+  <circle cx="20" cy="20" r="2" fill="#4a9eff" opacity="0.8"/>
+  <circle cx="44" cy="18" r="1.5" fill="#9b5cff" opacity="0.8"/>
+  <circle cx="48" cy="28" r="1" fill="#4a9eff" opacity="0.6"/>
+</svg>
