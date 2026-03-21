@@ -127,7 +127,22 @@ export default defineConfig({
     
     // 页脚
     footer: {
-      message: '野径不通，那就踩出一条路<br/><span style="font-size:12px;opacity:0.8;">© 2026 阿野的野径 | <a href="/legal" style="color:inherit;">法律声明</a></span><br/><span id="busuanzi_container_site_pv" style="font-size:11px;opacity:0.6;">👁️ 访问量：<span id="busuanzi_value_site_pv"></span></span>',
+      message: `
+        <div class="footer-content">
+          <div class="footer-slogan">野径不通，那就踩出一条路</div>
+          <div class="footer-divider"></div>
+          <div class="footer-meta">
+            <span class="footer-copyright">© 2026 阿野的野径</span>
+            <span class="footer-divider-dot">·</span>
+            <a href="/legal" class="footer-link">法律声明</a>
+          </div>
+          <div class="footer-stats">
+            <span class="stats-icon">👁️</span>
+            <span class="stats-label">访问量</span>
+            <span id="busuanzi_value_site_pv" class="stats-count">--</span>
+          </div>
+        </div>
+      `,
       copyright: '',
     },
     

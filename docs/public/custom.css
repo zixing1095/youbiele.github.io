@@ -1,4 +1,192 @@
-/* 🎵 音乐播放器 - 紧凑设计 */
+/* ===== 页脚美化 - 专业设计 ===== */
+
+/* 页脚容器 */
+.VPFooter {
+  border-top: 1px solid var(--vp-c-divider) !important;
+  padding: 32px 24px 24px !important;
+  background: var(--vp-c-bg);
+}
+
+/* 页脚内容容器 */
+.footer-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* 标语 */
+.footer-slogan {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--vp-c-text-1);
+  letter-spacing: 0.5px;
+  text-align: center;
+  line-height: 1.6;
+}
+
+/* 分隔线 */
+.footer-divider {
+  width: 60px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--vp-c-brand), transparent);
+  border-radius: 2px;
+  opacity: 0.6;
+}
+
+/* 元信息行（版权 + 链接） */
+.footer-meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  color: var(--vp-c-text-2);
+}
+
+.footer-copyright {
+  font-weight: 500;
+}
+
+.footer-divider-dot {
+  opacity: 0.5;
+  font-size: 10px;
+}
+
+.footer-link {
+  color: var(--vp-c-text-2);
+  text-decoration: none;
+  transition: all 0.2s ease;
+  font-weight: 500;
+}
+
+.footer-link:hover {
+  color: var(--vp-c-brand);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* 访问量统计 - 胶囊设计 */
+.footer-stats {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  background: linear-gradient(135deg, rgba(74, 158, 255, 0.08), rgba(74, 158, 255, 0.02));
+  border: 1px solid rgba(74, 158, 255, 0.2);
+  border-radius: 20px;
+  font-size: 13px;
+  color: var(--vp-c-text-2);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: default;
+}
+
+.footer-stats:hover {
+  background: linear-gradient(135deg, rgba(74, 158, 255, 0.12), rgba(74, 158, 255, 0.04));
+  border-color: rgba(74, 158, 255, 0.35);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(74, 158, 255, 0.15);
+}
+
+.stats-icon {
+  font-size: 14px;
+  line-height: 1;
+}
+
+.stats-label {
+  font-weight: 500;
+  opacity: 0.8;
+}
+
+.stats-count {
+  font-weight: 700;
+  font-size: 14px;
+  background: linear-gradient(135deg, var(--vp-c-brand), var(--vp-c-brand-dark));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  min-width: 32px;
+  text-align: center;
+  display: inline-block;
+}
+
+/* 暗色主题适配 */
+.dark .footer-stats {
+  background: linear-gradient(135deg, rgba(74, 158, 255, 0.1), rgba(74, 158, 255, 0.03));
+  border-color: rgba(74, 158, 255, 0.25);
+}
+
+.dark .footer-stats:hover {
+  background: linear-gradient(135deg, rgba(74, 158, 255, 0.15), rgba(74, 158, 255, 0.06));
+  border-color: rgba(74, 158, 255, 0.4);
+}
+
+/* 移动端适配 */
+@media (max-width: 768px) {
+  .VPFooter {
+    padding: 24px 16px 20px !important;
+  }
+  
+  .footer-content {
+    gap: 14px;
+  }
+  
+  .footer-slogan {
+    font-size: 14px;
+  }
+  
+  .footer-divider {
+    width: 48px;
+  }
+  
+  .footer-meta {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    font-size: 12px;
+  }
+  
+  .footer-divider-dot {
+    display: none;
+  }
+  
+  .footer-stats {
+    padding: 5px 12px;
+    font-size: 12px;
+  }
+  
+  .stats-count {
+    font-size: 13px;
+    min-width: 28px;
+  }
+}
+
+/* 超小屏幕 */
+@media (max-width: 480px) {
+  .footer-slogan {
+    font-size: 13px;
+  }
+  
+  .footer-stats {
+    padding: 4px 10px;
+    gap: 6px;
+  }
+  
+  .stats-icon {
+    font-size: 13px;
+  }
+  
+  .stats-label {
+    display: none;
+  }
+  
+  .stats-count {
+    font-size: 13px;
+  }
+}
+
+/* ===== 音乐播放器 - 紧凑设计 ===== */
 
 .music-player {
   position: fixed;
