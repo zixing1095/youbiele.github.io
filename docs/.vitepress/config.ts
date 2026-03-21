@@ -60,6 +60,9 @@ export default defineConfig({
     // ===== 自定义 CSS =====
     ['link', { rel: 'stylesheet', href: '/custom.css' }],
     
+    // ===== 音乐播放器 =====
+    ['script', { src: '/music-player.js', defer: true }],
+    
     // ===== 结构化数据 (JSON-LD) =====
     ['script', { type: 'application/ld+json' }, `{
       "@context": "https://schema.org",
@@ -152,22 +155,7 @@ export default defineConfig({
     
     // 页脚
     footer: {
-      message: `
-        <div class="footer-content">
-          <div class="footer-slogan">野径不通，那就踩出一条路</div>
-          <div class="footer-divider"></div>
-          <div class="footer-meta">
-            <span class="footer-copyright">© 2026 阿野的野径</span>
-            <span class="footer-divider-dot">·</span>
-            <a href="/legal" class="footer-link">法律声明</a>
-          </div>
-          <div class="footer-stats">
-            <span class="stats-icon">👁️</span>
-            <span class="stats-label">访问量</span>
-            <span id="busuanzi_value_site_pv" class="stats-count">--</span>
-          </div>
-        </div>
-      `,
+      message: '<div class="footer-content"><div class="footer-slogan">野径不通，那就踩出一条路</div><div class="footer-divider"></div><div class="footer-meta"><span class="footer-copyright">© 2026 阿野的野径</span><span class="footer-divider-dot">·</span><a href="/legal" class="footer-link">法律声明</a></div><div class="footer-stats"><span class="stats-icon">👁️</span><span class="stats-label">访问量</span><span id="busuanzi_value_site_pv" class="stats-count">--</span></div></div>',
       copyright: '',
     },
     
