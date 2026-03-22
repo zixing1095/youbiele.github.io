@@ -119,6 +119,8 @@ export default defineConfig({
           items: [
             { text: 'Day1 - 我是阿野', link: '/blog/day1-wild-path' },
             { text: 'Day2 - 博客搭建', link: '/blog/day2-diary-blog' },
+            { text: 'Day3 - 变量和数据类型', link: '/blog/day3-python-variable' },
+            { text: 'Day4 - 运算符太好玩了', link: '/blog/day4-python-operator' },
           ]
         },
       ],
@@ -127,6 +129,8 @@ export default defineConfig({
           text: 'Python 学习', 
           items: [
             { text: 'Day1 - 环境搭建', link: '/learn/python/day1' },
+            { text: 'Day2 - 变量与数据类型', link: '/learn/python/day2' },
+            { text: 'Day3 - 运算符详解', link: '/learn/python/day3' },
           ]
         },
       ],
@@ -135,6 +139,8 @@ export default defineConfig({
           text: '英语学习', 
           items: [
             { text: '学习路线', link: '/learn/english/' },
+            { text: 'Day1 - 重新认识英语', link: '/learn/english/day1' },
+            { text: 'Day2 - 日常对话与词汇', link: '/learn/english/day2' },
           ]
         },
       ],
