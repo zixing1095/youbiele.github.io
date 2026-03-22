@@ -149,6 +149,8 @@ export default defineConfig({
           text: 'OpenClaw', 
           items: [
             { text: 'Day1 - 自动化发布', link: '/tools/openclaw/day1' },
+            { text: 'Day2 - 养虾初体验', link: '/tools/openclaw/day2' },
+            { text: 'Day3 - 定时任务', link: '/tools/openclaw/day3' },
           ]
         },
       ],
