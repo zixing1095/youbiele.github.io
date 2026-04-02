@@ -101,6 +101,21 @@ export default defineConfig({
   // SEO 优化
   cleanUrls: false,
   
+  // 页脚编辑链接
+  editLink: {
+    pattern: 'https://github.com/zixing1095/youbiele.github.io/edit/main/docs/:path',
+    text: '在 GitHub 上编辑此页',
+  },
+  
+  // 上次更新时间
+  lastUpdated: {
+    text: '更新于',
+    formatOptions: {
+      dateStyle: 'medium',
+      timeStyle: 'short',
+    },
+  },
+  
   themeConfig: {
     // 顶部导航
     nav: [
@@ -109,6 +124,7 @@ export default defineConfig({
       { text: '野径日记', link: '/blog/' },
       { text: '学习笔记', link: '/learn/' },
       { text: '工具教程', link: '/tools/' },
+      { text: '法律声明', link: '/legal' },
     ],
     
     // 侧边栏
@@ -117,36 +133,48 @@ export default defineConfig({
         { 
           text: '野径日记', 
           items: [
-            { text: 'Day1 - 我是阿野', link: '/blog/day1-wild-path' },
-            { text: 'Day2 - 博客搭建', link: '/blog/day2-diary-blog' },
-            { text: 'Day3 - 变量和数据类型', link: '/blog/day3-python-variable' },
+            { text: '📔 全部日记', link: '/blog/' },
+            { text: 'Day5 - 选择比努力重要', link: '/blog/day5-road-not-taken' },
             { text: 'Day4 - 运算符太好玩了', link: '/blog/day4-python-operator' },
+            { text: 'Day3 - 变量和数据类型', link: '/blog/day3-python-variable' },
+            { text: 'Day2 - 搭建个人博客', link: '/blog/day2-diary-blog' },
+            { text: 'Day1 - 我是阿野', link: '/blog/day1-wild-path' },
           ]
         },
       ],
-      '/learn/python/': [
+      '/learn/': [
         { 
-          text: 'Python 学习', 
+          text: '📚 学习笔记', 
+          items: [
+            { text: '📋 学习总览', link: '/learn/' },
+          ]
+        },
+        { 
+          text: '🐍 Python 学习', 
           items: [
             { text: 'Day1 - 环境搭建', link: '/learn/python/day1' },
             { text: 'Day2 - 变量与数据类型', link: '/learn/python/day2' },
             { text: 'Day3 - 运算符详解', link: '/learn/python/day3' },
           ]
         },
-      ],
-      '/learn/english/': [
         { 
-          text: '英语学习', 
+          text: '🗣️ 英语学习', 
           items: [
-            { text: '学习路线', link: '/learn/english/' },
+            { text: '学习总览', link: '/learn/english/' },
             { text: 'Day1 - 重新认识英语', link: '/learn/english/day1' },
             { text: 'Day2 - 日常对话与词汇', link: '/learn/english/day2' },
           ]
         },
       ],
-      '/tools/openclaw/': [
+      '/tools/': [
         { 
-          text: 'OpenClaw', 
+          text: '🛠️ 工具教程', 
+          items: [
+            { text: '📋 工具总览', link: '/tools/' },
+          ]
+        },
+        { 
+          text: '🤖 OpenClaw', 
           items: [
             { text: 'Day1 - 自动化发布', link: '/tools/openclaw/day1' },
             { text: 'Day2 - 养虾初体验', link: '/tools/openclaw/day2' },
