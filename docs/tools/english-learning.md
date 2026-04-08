@@ -163,6 +163,18 @@ keywords: 英语学习, 免费英语, 英语工具, 口语练习, 词汇记忆, 
 
 ## 📌 相关资源
 
+### 🔥 热门专题（必读！）
+
+| 专题 | 内容 | 难度 |
+|------|------|------|
+| [🗣️ 影子跟读法](/learn/english/shadowing-method/) | 30天完整训练计划 | ⭐⭐ |
+| [🔤 词根词缀记忆法](/learn/english/word-root-method/) | 50个核心词根，1个=10个单词 | ⭐⭐⭐ |
+| [💬 常用口语100句](/learn/english/daily-phrases/) | 全场景覆盖，收藏备用 | ⭐ |
+| [🎬 YouTube学英语](/tools/youtube-english/) | 油管学习全攻略+频道推荐 | ⭐⭐ |
+| [📊 学习记录模板](/learn/english/study-template/) | 打卡表格/进度追踪 | ⭐ |
+
+### 📚 其他资源
+
 - [🐍 Python 学习笔记](/learn/python/) — 用编程思维学英语
 - [🛠️ OpenClaw 自动化](/tools/openclaw/) — 用 AI 提升效率
 - [📔 野径日记](/blog/) — 阿野的学习记录
