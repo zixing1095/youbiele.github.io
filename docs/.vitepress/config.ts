@@ -6,6 +6,9 @@ export default defineConfig({
   lastUpdated: true,
   base: '/',
   
+  // 允许死链接（新文件部署后会自动生效）
+  ignoreDeadLinks: true,
+  
   head: [
     // ===== SEO 基础 =====
     ['link', { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' }],
